@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="31cm" height="22cm" viewBox="4 18 607 434" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="243" y="206" width="98.8" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="243" y="206" width="98.8" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="292.4" y="225">PeerTable</text>
+    <rect style="fill: #ffffff" x="243" y="234" width="98.8" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="243" y="234" width="98.8" height="8"/>
+    <rect style="fill: #ffffff" x="243" y="242" width="98.8" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="243" y="242" width="98.8" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="219" y="331" width="164" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="219" y="331" width="164" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="301" y="350">PeerEntry</text>
+    <rect style="fill: #ffffff" x="219" y="359" width="164" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="219" y="359" width="164" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="222" y="373">+ID</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="222" y="389">+Region</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="222" y="405">+IPAddress</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="222" y="421">+LastContactTime</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="222" y="437">+ReachableLikelihood</text>
+    <rect style="fill: #ffffff" x="219" y="443" width="164" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="219" y="443" width="164" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="414" y="127" width="132.35" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="414" y="127" width="132.35" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="480.175" y="146">PathHeuristic</text>
+    <rect style="fill: #ffffff" x="414" y="155" width="132.35" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="414" y="155" width="132.35" height="8"/>
+    <rect style="fill: #ffffff" x="414" y="163" width="132.35" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="414" y="163" width="132.35" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="5" y="108" width="62.65" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="5" y="108" width="62.65" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="36.325" y="127">Client</text>
+    <rect style="fill: #ffffff" x="5" y="136" width="62.65" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="5" y="136" width="62.65" height="8"/>
+    <rect style="fill: #ffffff" x="5" y="144" width="62.65" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="5" y="144" width="62.65" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="470" y="378" width="117.8" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="470" y="378" width="117.8" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="528.9" y="397">Region</text>
+    <rect style="fill: #ffffff" x="470" y="406" width="117.8" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="470" y="406" width="117.8" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="473" y="420">+ID</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="473" y="436">+Location(x,y)</text>
+    <rect style="fill: #ffffff" x="470" y="442" width="117.8" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="470" y="442" width="117.8" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="301,330.003 301,310 292.4,310 292.4,276.164 "/>
+    <polygon style="fill: #ffffff" points="292.4,250.992 297.2,264.992 292.4,278.992 287.6,264.992 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="292.4,250.992 297.2,264.992 292.4,278.992 287.6,264.992 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="296.7" y="306"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="305" y="326.003">*</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="303.4" y="262.992">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="292.4,204.994 292.4,185.497 67.65,185.497 67.65,177.172 "/>
+    <polygon style="fill: #ffffff" points="67.65,152 72.45,166 67.65,180 62.85,166 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="67.65,152 72.45,166 67.65,180 62.85,166 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="180.025" y="181.497"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="296.4" y="200.994">1</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="78.65" y="164">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="67.65,152 236.321,152 236.321,149 406.287,149 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="393.639,154 409.639,149 393.639,144 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="238.321" y="146.5">&lt;&lt;GetOverlayPeer&gt;&gt;</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="414,171 422.5,171 422.5,228 349.497,228 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="362.144,223 346.144,228 362.144,233 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="424.5" y="195.5">&lt;&lt;GetPeers&gt;&gt;</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="36.325,152 36.325,385 212.295,385 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="199.647,390 215.647,385 199.647,380 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="127.663" y="381">&lt;&lt;GetIpAddress&gt;&gt;</text>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="383.987,391 426.499,391 426.499,414 469.049,414 "/>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="546.35,171 609.5,171 609.5,294.25 463.5,294.25 463.5,345 389.705,345 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="402.353,340 386.353,345 402.353,350 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="536.5" y="294.25">&lt;&lt;SetLikelihood&gt;&gt;</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="195.5" y="19.25" width="69.45" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="195.5" y="19.25" width="69.45" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="230.225" y="38.25">Server</text>
+    <rect style="fill: #ffffff" x="195.5" y="47.25" width="69.45" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="195.5" y="47.25" width="69.45" height="8"/>
+    <rect style="fill: #ffffff" x="195.5" y="55.25" width="69.45" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="195.5" y="55.25" width="69.45" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="36.325,108 36.325,73.25 37.5,73.25 37.5,33.25 188.795,33.25 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="176.147,38.25 192.147,33.25 176.147,28.25 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="39.5" y="53.25">&lt;&lt;Contacts&gt;&gt;</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="67.65,108 67.65,94.25 170.5,94.25 170.5,122 74.3552,122 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="87.0026,117 71.0026,122 87.0026,127 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="119.075" y="94.25">&lt;&lt;Contacts&gt;&gt;</text>
+  </g>
+</svg>

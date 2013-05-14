@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="31cm" height="42cm" viewBox="17 17 607 826" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <image x="544.029" y="18.7228" width="71.0397" height="120.406" xlink:href="file:///home/kebenson/Documents/Research/images/models/devices/server.svg"/>
+  <image x="369.52" y="47.7054" width="111.617" height="83.9921" xlink:href="file:///home/kebenson/Documents/Research/images/models/devices/computer.svg"/>
+  <image x="196.319" y="47.7994" width="115.2" height="86.688" xlink:href="file:///home/kebenson/Documents/Research/images/models/devices/computer.svg"/>
+  <g>
+    <rect style="fill: #ffffff" x="535.123" y="53.776" width="88.85" height="31.55"/>
+    <text font-size="27.0933" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="579.548" y="78.926">
+      <tspan x="579.548" y="78.926">Server</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="406.528" y="64.5515" width="37.6" height="31.55"/>
+    <text font-size="27.0933" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="425.328" y="89.7015">
+      <tspan x="425.328" y="89.7015">H2</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="235.119" y="65.9934" width="37.6" height="31.55"/>
+    <text font-size="27.0933" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="253.919" y="91.1434">
+      <tspan x="253.919" y="91.1434">H1</tspan>
+    </text>
+  </g>
+  <image x="52.2938" y="55.5883" width="104.65" height="71.0019" xlink:href="file:///home/kebenson/Documents/Research/images/models/devices/wireless_sensor.svg"/>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-dasharray: 8; stroke: #000000" x1="104.619" y1="126.59" x2="104.619" y2="180.455"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-dasharray: 8; stroke: #000000" x1="104.619" y1="740.455" x2="104.619" y2="838.087"/>
+    <rect style="fill: #ffffff" x="97.6189" y="180.455" width="14" height="560"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="97.6189" y="180.455" width="14" height="560"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-dasharray: 8; stroke: #000000" x1="579.548" y1="139.129" x2="579.548" y2="180.455"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-dasharray: 8; stroke: #000000" x1="579.548" y1="810.455" x2="579.548" y2="842.843"/>
+    <rect style="fill: #ffffff" x="572.548" y="180.455" width="14" height="630"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="572.548" y="180.455" width="14" height="630"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-dasharray: 8; stroke: #000000" x1="253.919" y1="134.487" x2="253.919" y2="320.781"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-dasharray: 8; stroke: #000000" x1="253.919" y1="460.781" x2="253.919" y2="839.276"/>
+    <rect style="fill: #ffffff" x="246.919" y="320.781" width="14" height="140"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="246.919" y="320.781" width="14" height="140"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-dasharray: 8; stroke: #000000" x1="425.328" y1="131.698" x2="425.328" y2="495.595"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-dasharray: 8; stroke: #000000" x1="425.328" y1="635.595" x2="425.328" y2="836.897"/>
+    <rect style="fill: #ffffff" x="418.328" y="495.595" width="14" height="140"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="418.328" y="495.595" width="14" height="140"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="555.548" y1="180.455" x2="111.619" y2="180.455"/>
+    <polygon style="fill: #000000" points="555.548,185.455 571.548,180.455 555.548,175.455 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="555.548,185.455 571.548,180.455 555.548,175.455 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="342.46" y="173.078">Report Data</text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="449.328" y1="600.578" x2="572.548" y2="600.455"/>
+    <polygon style="fill: #000000" points="449.323,595.578 433.328,600.594 449.333,605.578 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="449.323,595.578 433.328,600.594 449.333,605.578 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="499.247" y="595.013">ACK Data</text>
+  </g>
+  <image x="145.052" y="147.157" width="78.1698" height="61.8388" xlink:href="file:///home/kebenson/Documents/Research/images/models/explosion.svg"/>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="229.919" y1="320.74" x2="111.619" y2="320.455"/>
+    <polygon style="fill: #000000" points="229.907,325.74 245.919,320.779 229.931,315.74 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="229.907,325.74 245.919,320.779 229.931,315.74 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="178.35" y="312.201">Contact Overlay</text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="555.548" y1="355.473" x2="260.919" y2="355.781"/>
+    <polygon style="fill: #000000" points="555.554,360.473 571.548,355.456 555.543,350.473 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="555.554,360.473 571.548,355.456 555.543,350.473 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="415.002" y="348.133">Forward Data</text>
+  </g>
+  <image x="286.141" y="322.376" width="78.1698" height="61.8388" xlink:href="file:///home/kebenson/Documents/Research/images/models/explosion.svg"/>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="401.328" y1="495.587" x2="111.619" y2="495.455"/>
+    <polygon style="fill: #000000" points="401.326,500.587 417.328,495.594 401.331,490.587 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="401.326,500.587 417.328,495.594 401.331,490.587 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="255.648" y="491.689">Contact Overlay</text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="555.548" y1="530.472" x2="432.328" y2="530.595"/>
+    <polygon style="fill: #000000" points="555.553,535.472 571.548,530.456 555.543,525.472 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="555.553,535.472 571.548,530.456 555.543,525.472 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="507.76" y="522.88">Forward Data</text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="128.619" y1="635.463" x2="418.328" y2="635.595"/>
+    <polygon style="fill: #000000" points="128.621,630.463 112.619,635.455 128.617,640.463 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="128.621,630.463 112.619,635.455 128.617,640.463 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="242.567" y="627.772">Forward ACK</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="97.6189,320.455 76.6189,320.455 76.6189,495.455 87.8828,495.455 "/>
+    <polygon style="fill: #000000" points="95.3828,495.455 85.3828,500.455 87.8828,495.455 85.3828,490.455 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="95.3828,495.455 85.3828,500.455 87.8828,495.455 85.3828,490.455 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="17.8068" y="408.783">
+    <tspan x="17.8068" y="408.783">Timeout</tspan>
+  </text>
+</svg>
