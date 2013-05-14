@@ -30,3 +30,6 @@
 *.vrb
 *.xdy
 *.tdo
+
+#ignore the pdf files for select papers
+papers/location_routing_survey/location_routing_survey.pdf
