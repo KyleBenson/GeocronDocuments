@@ -31,5 +31,8 @@
 *.xdy
 *.tdo
 
+#random things that have showed up while building latex but don't seem useful
+*.fls
+
 #ignore the pdf files for select papers
 papers/location_routing_survey/location_routing_survey.pdf
