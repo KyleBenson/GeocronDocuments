@@ -24,20 +24,21 @@
 \begin{itemize}
 	\item Traditional routing
 	\begin{itemize}
-		\item Unique address
-		\item Source routing
-		\item Distance-vector
+		\item Unique address: IP, MAC, Peer ID, etc.
+		\item Source routing: next hop address, neighbor index
+		\item Local routing: distance-vector, link state, label-switching
 	\end{itemize}
 	
+	\pause
 	\item Why location information?
 	\begin{itemize}
+		\item Geocast: deliver messages to all (or some) nodes in target region
 		\item Latency: request from closer server, route locally when possible
 		\item Congestion: confine route requests to smaller regions (MANETs)
-		\item Recovery: avoid problematic areas of the network
-		\item Geocast: deliver messages to all (or some) nodes in target region
 		\item Energy: closer nodes need less radio power to reach
 		\item Sensors: regional event detection, spatial querying
 		\item Planning: paths (robots), surveillance cameras (focus on area target will appear next)
+		\alert<3>{\item Recovery: avoid problematic areas of the network}
 	\end{itemize}
 \end{itemize}
 
@@ -47,8 +48,9 @@
 \begin{frame}{Overview}
 	\begin{itemize}
 		\item Location service
-		\item Clustering
+		\item Greedy
 		\item Geometric
+		\item Clustering
 	\end{itemize}
 \end{frame}
 
