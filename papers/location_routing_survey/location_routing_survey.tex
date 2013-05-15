@@ -228,6 +228,13 @@ the application layer provides the trajectory information for routing. Moreover,
 large scale wired network, which suite the purpose of our research.
 
 
+\section{Agent/Agentless Zone Forwarding}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+Important earlier papers like \site{DREAM} had laid out several import features regarding geocast protocol design, one of which is forwarding zone. In order to avoid flooding the whole ad hoc network, protocols like \site{DREAM}, \site{GAMER}, \site{GEOGRID} and so on devide the network into several Forwarding Zones (FZ). Geocast messages would 
+only be flooded within the given FZ so as to reduce the oervall network traffic. The shape of the FZ could depend on what the specific protocol demands, it could be triagular, rectangular or something else. However, the protocols utilizing FZ is different on how to forward packets. Protocols like \site{DREAM} utilize basic greedy forwarding within
+the FZ, i.e. the node will flood its all one-hop neighbours within the FZ. On the other hand, protocols like \site{GEOGRID} deploy an election scheme. Every grid (FZ) would elect an agent to forward the packet to other grids (FZs). The agent-based forwarding would reduce some redundancy caused by agentless flooding, however the control overhead 
+introduced in the election procedure cannot be ignored.
 
 \section{Geometric Routing}
 
