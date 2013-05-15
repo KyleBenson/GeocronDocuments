@@ -1,10 +1,9 @@
 \documentclass[pdftex]{beamer}
 \usetheme{Frankfurt}
 
-
 % declare the path(s) where your graphic files are
 % ../.. is the GeocronDocuments directory
-\graphicspath{{../../images/external/location_routing/}{../../images/}}
+\graphicspath{{../../images/external/location_routing/}{../../images/diagrams/}}
 \DeclareGraphicsExtensions{.pdf,.png}
 
 %some screwiness required to get the apalike bib style working
@@ -90,9 +89,10 @@
 		\item Maintain global information \uncover<2->{\alert{easily outdated/inefficient}}
 		\item<3-> Distribute load
 		\begin{itemize}
-			\item In \cite{Li:2000:SLS:345910.345931}, node updates \emph{location servers} distributed throughout network
+			\item In \cite{Li:2000:SLS:345910.345931}, node updates \emph{location servers} (LS) throughout network
 			\item Divide network into hierarchical grid
-			\item Choose location server from 3 external grids at each level
+			\item LS's in 3 external grids at each level
+			\item Lookup distance $<$ square LS co-resides in
 		\end{itemize}
 		
 	\end{itemize}
@@ -103,7 +103,7 @@
 \uncover<3->{
 \begin{figure}
 \includegraphics[width=\textwidth]{location_service}
-\caption{Hierarchical grid with 4 order-i squares in order-i+1 square}
+\caption{Hierarchical grid with 4 order-i squares in order-i+1 square.}
 \end{figure}}
 \end{column}
 \end{columns}
@@ -157,27 +157,29 @@
 \begin{columns}
 \begin{column}{.5\textwidth}
 \begin{itemize}
-	\item In \cite{749282}, source defines a \emph{multicast region} and \emph{forwarding zone}
-		\begin{itemize}
-			\item Message delivered to all nodes in multicast region
-			\item Defined as a rectangle, coordinates inside message
-			\item Includes source, destination, plus error
-			\item Message flooded within forwarding zone until target reached
-		\end{itemize}
+	\item Forward to next closest hop to destination
+	\item What if no such neighbor?
+	\begin{itemize}
+		\item Reached local minimum
+		\item \emph{Voids} in network 
+		\item Solution: temporarily forward to farther hop
+		\item Used by \cite{Ko98location-aidedrouting, 749282} with parameter $\delta$
+		\item Forward if next hop distance $\leq$ previous distance + $\delta$
+	\end{itemize}
 \end{itemize}
 \end{column}
 
 \begin{column}{.5\textwidth}
 \begin{figure}
-\includegraphics[width=\textwidth]{adaptive_geocast_region}
-\caption{Depiction of adaptive multicast region and forwarding zone}
+\includegraphics[width=\textwidth]{void}
+\caption{A void in a network (roughly centered at F, outlined in red) may disrupt greedy forwarding}
 \end{figure}
 \end{column}
 \end{columns}
 \end{frame}
 
 
-\begin{frame}{Greedy Forwarding}
+\begin{frame}{Greedy Forwarding in confined region}
 \begin{columns}
 \begin{column}{.5\textwidth}
 \begin{itemize}
@@ -202,7 +204,7 @@
 \end{frame}
 
 
-\begin{frame}{Greedy Forwarding}
+\begin{frame}{Greedy Forwarding further enhancements}
 \begin{columns}
 \begin{column}{.5\textwidth}
 \begin{itemize}
@@ -227,11 +229,35 @@
 
 \section{Trajectory Routing}
 
+\begin{frame}{Trajectory Routing}
+\begin{columns}
+\begin{column}{.5\textwidth}
+	\begin{itemize}
+		\item Introduced in \cite{Niculescu2003, Niculescu2004}, implemented in \cite{Yuksel2006}
+		\item Message follows a curve
+		\item Hybrid greedy/source routing
+		\item Forward to neighbor furthest along curve
+		\item Routes around voids, obstacles, etc.
+		\item GeoCRON: identify failed regions $\rightarrow$ route around
+	\end{itemize}
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\begin{figure}
+\includegraphics[width=\textwidth]{trajectory}
+\caption{Forwarding along a trajectory}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \section{Geometric Routing}
 
 \begin{frame}{Geometric Routing}
+\begin{columns}
+\begin{column}{.5\textwidth}
 	\begin{itemize}
 		\item Network topology $\rightarrow$ graph
 			\begin{itemize}
@@ -239,32 +265,63 @@
 				\item Edges $=$ direct communication
 			\end{itemize}
 		\pause
-		\item Forward based on geometry of graph
+		\item Graph geometry $\rightarrow$ forwarding
 		\pause
-		\item \emph{Compass routing} first proposed in \cite{Kranakis99compassrouting}
+		\item \emph{Compass routing} proposed \cite{Kranakis99compassrouting}
 		\begin{itemize}
 			\item \emph{Right-hand rule}
-			\begin{itemize}
-				\item Forward packet along next counter-clockwise edge
-				\item Analogous to following the right hand wall in a maze
-			\end{itemize}
 			\item Also called \emph{face routing}
-			\item Also used in \cite{Kuhn2003}, ADD OTHERS HERE!!!!!!!!!!!!
+			\item Also used in \cite{Kuhn2003, Kim:2005:GRM:1251203.1251219}
 		\end{itemize}
-		\item 
-	\end{itemize}
-right-hand rule 
-introduced in Compass Routing on Geometric Networks
+\end{itemize}
+\end{column}
+
+\begin{column}{.5\textwidth}
+\begin{figure}
+\includegraphics[width=.5\textwidth]{right_hand_rule}
+\caption{The right-hand rule: forward packet along next counter-clockwise edge. Analogous to following the right hand wall in a maze.}
+\end{figure}
+\end{column}
+\end{columns}
 \end{frame}
 
+
+\begin{frame}{Geometric Routing in GeoCRON}
+\begin{columns}
+\begin{column}{.5\textwidth}
+	\begin{itemize}
+		\item Overlay network $\rightarrow$ planar graph
+		\item Faces large enough to avoid routing back to failed regions
+		\item Intermediary makes routing decision, NOT source
+\end{itemize}
+\end{column}
+
+\begin{column}{.5\textwidth}
+\begin{figure}
+\includegraphics[height=\textwidth, angle=-90]{angular_path}
+\caption{Apply right-hand rule to overlay paths.  Similar to Orthogonal Path Heuristic.}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \section{Clustering}
 
 \begin{frame}
-	
-	In \cite{779923}, an inter-zone clustering protocol is periodically run to update with information about inter-zone links.
-	Does not give information about exact location of destination within a zone and so still need to find that.
+	\begin{itemize}
+		\item GRID \cite{Liao01grid:a} divides network into squares
+		\begin{itemize}
+			\item Gateway chosen for each square
+			\item Zone-based version of AODV to route
+			\item Route requests confined to geographic region
+		\end{itemize}
+		\item In \cite{779923}, an inter-zone clustering protocol periodically run
+		\begin{itemize}
+			\item Updated with inter-zone links
+			\item Destination's exact location within zone unknown $\rightarrow$ packet gets close enough
+		\end{itemize}	
+	\end{itemize}
 \end{frame}
 
 
