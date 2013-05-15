@@ -168,7 +168,7 @@
 \author{\IEEEauthorblockN{Kyle E. Benson and Zhipeng Huang}
 \IEEEauthorblockA{Donald Bren School of Information and Computer Sciences\\
 University of California, Irvine\\
-%Irvine, California 92697--3425\\
+Irvine, California 92697\\
 Email: kebenson@uci.edu, zhipengh@uci.edu}}
 
 % use for special paper notices
@@ -180,9 +180,9 @@ Email: kebenson@uci.edu, zhipengh@uci.edu}}
 
 
 \begin{abstract}
-%\boldmath
-
-
+In this survey paper, we categorize and present various techniques for routing with location information.
+These strategies are applied in various types of networks, including sensor, mobile ad-hoc, and even wired networks.
+We present the motivations for these routing protocols and their evolution over time, such as how certain categories were developed in response to limitations of previous ones.
 \end{abstract}
 
 % For peer review papers, you can put extra information on the cover
@@ -198,11 +198,18 @@ Email: kebenson@uci.edu, zhipengh@uci.edu}}
 
 
 \section{Introduction}
-% no \IEEEPARstart
+
+Traditional network routing typically relies on a static addressing scheme: in order to contact a node, say $B$, the sending node, say $A$, must know some unique identifier associated with $B$ in order to send a message to it.
+Some communication paradigms, such as multicast and broadcast, relax this assumption by communicating with entire groups, nodes belonging to a specific group identifier and all nodes in a network, respectively.
+In order to route these messages, intermediate nodes must know the next hop along the path to $B$.
+This requires knowledge of the network topology, either partial or full.
+Protocols to establish this knowledge typically include link-state (knowledge of full paths) or distance-vector (knowledge of the next hop towards a given destination) algorithms, although others exist such ass label-switching, which requires preconfiguring labels to correspond to particular paths, interfaces, etc.
+
+However, one can imagine situations in which maintaining knowledge of the network topology may be infeasible, such as mobile ad-hoc networks (MANETs), 
 
 %%%%%%%%%%
 
-\section{Conclusion and Future Work}
+\section{Conclusion}
 \label{conclusion}
 
 % use section* for acknowledgement
