@@ -13,7 +13,8 @@
 \begin{document}
 
 % This will make the icons next to bibitems appear as [#] instead of the silly article image
-\setbeamertemplate{bibliography item}[text]
+%deactivated since I'm using style apalike
+%\setbeamertemplate{bibliography item}[text]
 
 % Show the ToC at the start of each section, with the current section highlighted
 \AtBeginSection[]
@@ -140,16 +141,6 @@
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\section{Source Routing}
-
-\begin{frame}{Source Routing}
-	\begin{itemize}
-		\item 
-	\end{itemize}
-\end{frame}
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-
 \section{Greedy Forwarding}
 
 
@@ -212,6 +203,11 @@
 		\begin{itemize}
 			\item Intermediate (closer) nodes know topology better
 			\item Change region shape
+		\end{itemize}
+	\item Adaptive technique may help GeoCRON
+		\begin{itemize}
+			\item Failure assumed close to sensors
+			\item Message farther away $\rightarrow$\\ less chance of failures $\rightarrow$\\ routing region shrinks
 		\end{itemize}
 \end{itemize}
 \end{column}
@@ -347,6 +343,23 @@
 \end{columns}
 \end{frame}
 
+
+\begin{frame}{Clustering in GeoCRON}
+	\begin{itemize}
+	\item Sensors clustered by region (city, geocell, etc.)
+	\item More reliable node (or first to reach server) $\rightarrow$ clusterhead
+	\item Sensors report to clusterhead
+	\item Clusterhead forwards aggregate packets
+	\begin{itemize}
+		\item Data compression
+		\item Paths overlap anyway $\rightarrow$ reduce local congestion
+		\item Cluster aware of failures
+		\item<2-> \alert{Problem:} increased latency if $>$ 1 overlay hop
+		\item<3-> \alert{Problem:} what if clusterhead fails?
+	\end{itemize}
+	\end{itemize}
+\end{frame}
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \section{Hybrid}
@@ -364,14 +377,73 @@
 			\item Decreases \emph{lag time} (how long nodes hold data before mobicast region arrives)
 		\end{itemize}
 	\end{itemize}
+	\item Such hybrid approaches necessary in GeoCRON
+	\begin{itemize}
+		\item Adaptability $\rightarrow$ resilience
+		\item One technique may work well for some failures, not for others
+		\item e.g. earthquake $\neq$ hurricane
+	\end{itemize}
 \end{itemize}
+\end{frame}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\section{Wired Overlay Routing}
+
+\begin{frame}{Wired Overlay Routing - path choices}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\begin{itemize}
+	\item Little work done in this context
+	\item In \cite{Kim2010} overlay-based data dissemination is considered
+	\item Overlay neighbors chosen to minimize distance between routers on path
+	\item Intuition: geo-correlated failures affect nodes in proximity
+	\item Improve path diversity
+\end{itemize}
+\end{column}
+
+\begin{column}{.5\textwidth}
+\begin{figure}
+\includegraphics[width=\textwidth]{geo_failures_kyungbaek}
+\caption{Different overlay links may share the same underlay links/nodes}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Wired Overlay Routing - regional trees}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\begin{itemize}
+	\item Concept of \emph{responsible region tree (RRTree)} used in \cite{6424865}
+	\item Similarly to GRID, regions organized hierarchically
+	\item RRTree nodes' region $=$ childrens'
+	\item Each has emph{region hopping table} to contact non-adjacent regions
+	\item Route tree in O(logn)
+	\item Conjugate regions $\rightarrow$ geographically diverse $\rightarrow$ maintain external communication
+	
+\end{itemize}
+\end{column}
+
+\begin{column}{.5\textwidth}
+\begin{figure}
+\includegraphics[width=\textwidth]{gsford_rrtree}
+\caption{Depiction of GSFord's RRTree, RHT, and target geography}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\textwidth]{gsford_conjugate_region}
+\caption{Depiction of GSFord's conjugate regions}
+\end{figure}
+\end{column}
+\end{columns}
 \end{frame}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \part{bib}
 
-\begin{frame}{References}
+\begin{frame}[allowframebreaks]{References}
 \bibliographystyle{apalike}
 % argument is your BibTeX string definitions and bibliography database(s)
 \bibliography{IEEEabrv,location_routing}
