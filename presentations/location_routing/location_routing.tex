@@ -1,7 +1,17 @@
 \documentclass{beamer}
-\usetheme{Boadilla}
+\usetheme{Frankfurt}
+
 
 \begin{document}
+
+
+\AtBeginSection[]
+{
+   \begin{frame}
+        \frametitle{Roadmap}
+        \tableofcontents[currentsection,currentsubsection]
+   \end{frame}
+}
 
 \title[Location routing]{Location-Based Routing}
 \subtitle{An overview and possible directions for GeoCRON}
@@ -14,10 +24,12 @@
 }
 
 
-\begin{frame}
+\begin{frame}[plain]
 	\titlepage
 \end{frame}
 
+% Breaking intro into its own part suppresses navigation bar info
+\part{intro}
 
 \begin{frame}{Introduction}
 
@@ -32,37 +44,77 @@
 	\pause
 	\item Why location information?
 	\begin{itemize}
-		\item Geocast: deliver messages to all (or some) nodes in target region
+		\item Geocast: message all (or some) nodes in target region
 		\item Latency: request from closer server, route locally when possible
 		\item Congestion: confine route requests to smaller regions (MANETs)
 		\item Energy: closer nodes need less radio power to reach
 		\item Sensors: regional event detection, spatial querying
 		\item Planning: paths (robots), surveillance cameras (focus on area target will appear next)
 		\alert<3>{\item Recovery: avoid problematic areas of the network}
+		\begin{itemize}
+		\alert<3>{\uncover<3>{\item our primary interest!}}
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
 \end{frame}
 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\part{rest}
 
-\begin{frame}{Overview}
+\section{Location Service}
+
+\begin{frame}{Location Service}
+
 	\begin{itemize}
-		\item Location service
-		\item Greedy
-		\item Geometric
-		\item Clustering
+		\item Nodes have GPS
+		\item But how to look up destination's location?
+		
+		\begin{itemize}
+			\item placeholder
+		\end{itemize}
+		
 	\end{itemize}
+
 \end{frame}
 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\section{Greedy Forwarding}
 
 \begin{frame}{Location Service}
 mention voids
 \end{frame}
 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\section{Trajectory Routing}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\section{Geometric Routing}
 
 \begin{frame}{Geometric Routing}
 right-hand rule analagous to following the right hand wall in a maze
 introduced in Compass Routing on Geometric Networks
 \end{frame}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\section{Clustering}
+
+\begin{frame}{Clustering}
+In \cite{779923}, an inter-zone clustering protocol is periodically run to update with information about inter-zone links.
+Does not give information about exact location of destination within a zone and so still need to find that.
+\end{frame}
+
+\part{bib}
+
+\begin{frame}{References}
+\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{IEEEabrv,location_routing}
+\end{frame}
+
 
 \end{document}
