@@ -203,9 +203,13 @@ Traditional network routing typically relies on a static addressing scheme: in o
 Some communication paradigms, such as multicast and broadcast, relax this assumption by communicating with entire groups, nodes belonging to a specific group identifier and all nodes in a network, respectively.
 In order to route these messages, intermediate nodes must know the next hop along the path to $B$.
 This requires knowledge of the network topology, either partial or full.
-Protocols to establish this knowledge typically include link-state (knowledge of full paths) or distance-vector (knowledge of the next hop towards a given destination) algorithms, although others exist such ass label-switching, which requires preconfiguring labels to correspond to particular paths, interfaces, etc.
-
-However, one can imagine situations in which maintaining knowledge of the network topology may be infeasible, such as mobile ad-hoc networks (MANETs), 
+Protocols to establish this knowledge typically include link-state (knowledge of full paths) or distance-vector (knowledge of the next hop towards a given destination) algorithms, although others exist such as label-switching, which requires preconfiguring labels to correspond to particular paths, interfaces, etc.
+%
+However, one can imagine situations in which maintaining knowledge of the network topology may be unfeasible, such as mobile ad-hoc networks (MANETs), where the nodes are constantly moving. To maintain traditional routing protocols would be a rather difficult task under MANETs. For link-state protocols, the state update message flooding would simply paralyze the MANET, on the other hand distance-vector algorithms may not even work since the next hop may not even be there in the next moment. For wireless networks like MANETs, how to maintain a routing scheme that has lower overheads, could converge in constant time, and overcome the inherent problem introduced by wireless network itself such as high loss rate, is a huge challenge.
+%
+Moreover, it is not only the newly fledged wireless network but also the long existing wired network need a new thinking on routing. For wired networks, how to cope with emergency situation like link failure happens when earthquake or tsunami occurs. It takes long hours and high labor cost for current routing protocols to recover from failure. Black spots in the abstract routing topology may not be easily detected and the reconstruction of the network topology could be still error-prone.
+%
+Therefore it is important to investigate new routing designs to keep up with the challenge. In this survey paper, we have looked into areas such as location service based routing,  Greedy Forwarding, Trajectory-based routing, Zone Forwarding (Agent/Agent-less),   Geometric Routing, Clustering and so on, to grasp the recent development in the academia field.
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -273,7 +277,7 @@ Intermediate nodes detecting route failures can initialize a local search to dec
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\section{Trajectory Routing}
+\section{Trajectory-based Routing}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 Several recent studies ( \cite{Niculescu2003} \cite{Niculescu2004} \cite{Yuksel2006} ) had concentrated on Trajectory-based Routing (TBR) which serves as a middle ground between source-based routing and greedy forwarding. The sender node would encode trajectory to packets upon transmission, whereas the intermediate nodes would perform greedy forwarding based on the trajectory information it decodes in the 
@@ -282,7 +286,7 @@ the application layer provides the trajectory information for routing. Moreover,
 large scale wired network, which suite the purpose of our research.
 
 
-\section{Agent/Agentless Zone Forwarding}
+\section{Agent/Agent-less Zone Forwarding}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 Important earlier papers like \cite{Basagni1998} had laid out several import features regarding geocast protocol design, one of which is forwarding zone. In order to avoid flooding the whole ad hoc network, protocols like \cite{Basagni1998}, \cite{Camp2003}, \cite{Liao} and so on devide the network into several Forwarding Zones (FZ). Geocast messages would 
