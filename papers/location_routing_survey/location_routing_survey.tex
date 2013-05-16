@@ -221,25 +221,11 @@ Therefore it is important to investigate new routing designs to keep up with the
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \section{Location Service}
-\cite{Li:2000:SLS:345910.345931}Uses a routing technique similar to Cartesian routing in which each node maintains a list of neighbors, found through periodically broadcasted HELLO packets, and forwards a message to the neighbor known to be closest to the destination.
-The HELLO messages are broadcast one hop away to extend local neighborhood knowledge.
-They do not consider voids in the network.
-Each node maintains its location in a number of location servers, which are other nodes in the network.
-Location servers' locations are more dense near a node and less dense farther away to decrease inefficiencies for lookups made nearer to the node.
-Geographic space is divided up into hierarchical square regions (each order-2 square is comprised of 4 order-1 squares, the smallest, and so on).
-At each level of this hierarchy, a node is chosen as a server within each of the 3 order-i squares external to the one the source node resides in but contained within the order-i+1 square the source resides in. 
-The servers are chosen by having an ID closest to the source's, but greater (the ID space is circular).
-This is done by initially forwarding the packet to a particular location that the source wants a location server in.
-The message is then forwarded locally until the appropriate node within that region is found.
-The bootstrapping process involves first finding the order-1 servers, then order-2, etc.
-Note that a message should never travel farther than the size of the smallest square in which source and destination are co-located.
-In fact, each lookup only takes n steps where the order-n square is the smallest square that source and destination are co-located in.   
-Each step in the lookup process brings the query to the best node in the next larger square.          
-Updating location information        
-Each node sends updated information (outside the order-1 square since those are immediate neighbors) periodically.
-The number of updates is proportional to the node's speed.
-To handle query failures due to nodes leaving a region, forwarding pointers are left behind.
-These pointers are piggy-backed on the HELLO messages.
+
+Before a source node can route to a destination by location information, it must obviously possess this data.
+It may not be feasible for every node in a larger network to maintain the whereabouts of every other node, especially since these may change if nodes are mobile.
+To address this issue, a location routing system must provide a mechanism for scalably querying node updated locations.
+Typically, these mechanisms use hierarchical and/or tree-based approaches to make full advantage of the asymptotic properties of such structures, such as completing queries in O(logn) hops (where n $=$ the network size).
 
 \begin{figure}
 \label{fig:location-service}
@@ -248,15 +234,39 @@ These pointers are piggy-backed on the HELLO messages.
 \caption{Hierarchical grid with 4 order-i squares in order-i+1 square.}
 \end{figure}
 
+An example of such a system, presented in \cite{Li:2000:SLS:345910.345931}, uses a routing technique in which each node maintains a list of neighbors, found through periodically broadcasted HELLO packets, and forwards a message to the neighbor known to be closest to the destination.
+The HELLO messages are broadcast one hop away to extend local neighborhood knowledge.
+Each node maintains its location in a number of \emph{location servers}, which are other nodes in the network.
+Location servers' occur more densely near a node and less densely farther away in order to decrease inefficiencies for lookups made nearer to the node.
+
+As shown in Figure \ref{fig:location-service}, the geographic space is divided up into hierarchical square regions (each order-2 square is comprised of 4 order-1 squares, the smallest, and so on).
+At each level of this hierarchy, a node is chosen as a server within each of the 3 order-i squares external to the one the source node resides in but contained within the order-i+1 square the source resides in. 
+The servers are chosen by having an ID closest to the source's, but greater (the ID space is circular).
+This is done by initially forwarding the packet to a particular region that the source wants a location server in.
+The message is then forwarded locally until the appropriate node within that region is found.
+The bootstrapping process involves first finding the order-1 servers, then order-2, etc.
+
+Note that a message should never travel farther than the size of the smallest square in which source and destination are co-located.
+In fact, each lookup only takes n steps where the order-n square is the smallest square that source and destination are co-located in.   
+Each step in the lookup process brings the query to the best node in the next larger square.          
+Each node sends updated information (outside the order-1 square since those are immediate neighbors) periodically.
+The number of updates is proportional to the node's speed in order to avoid stale information caused by high mobility.
+To handle query failures due to nodes leaving a region, forwarding pointers are left behind, which are piggy-backed on the HELLO messages.
+
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \section{Greedy Forwarding}
 
-\cite{Huang2005} Mobicast: delivery to a moving geographic region.
-Initially forwarded as soon as possible (ASAP) when a node is within or adjacent to the current delivery zone.
-If it is not, the node will enter timed forwarding and will wait to forward the message until it or one of its neighbors is within the delivery zone, taking expected latency into account.
-This is referred to as just in time (JIT) forwarding.
-Uses both greedy and face routing, maintaining a spatial neighborhood as the set of nodes in all faces adjacent to the node except itself.
+To actually route a message through a network using location information, each router (intermediate node) must know how to forward the packet to the next hop.
+The simplest method to accomplish this is for the node to forward the packet to its neighbor who is closest to the destination.
+To avoid loops and ensure delivery, the next hop must be closer to the destination than the previous.
+However, this can result in a local minimum in which no available neighbors are closer to the destination.
+Such a situation, shown in Figure \ref{fig:network-void}, is referred to as a \emph{void}.
+Many works, some of which are described below, have proposed solutions to this problem.
+This section outlines protocols that use this greedy forwarding paradigm and how they address the problem of voids.
+
+The protocol in \cite{Yu01geographicaland} uses greedy forwarding, but to address holes in the network it uses a learned cost function of forwarding to the destination for each neighbor.  Once a packet reaches the target region, the data is diffused through either recursive geographic forwarding or restricted flooding.  The latter is better in less dense networks.
 
 \begin{figure}
 \label{fig:network-void}
@@ -265,11 +275,36 @@ Uses both greedy and face routing, maintaining a spatial neighborhood as the set
 \caption{A void in a network (roughly centered at F, outlined in red) may disrupt greedy forwarding}
 \end{figure}
 
-\cite{749282} They define a forwarding zone so that all nodes in that zone will forward a multi-cast packet via flooding to the actual multi-cast region, which is the target region.
-Two schemes for multicasting:          
-Rectangle: source defines a rectangular region and nodes in that region will forward them. 
+
+In \cite{Ko98location-aidedrouting}, the destination (D) is assumed to be in some circular region (representing a margin of error), whose radius is defined based on D's velocity, which is assumed known to all nodes.
+Route requests are only forwarded if the node is within this expected zone, so other zones are added to fill gap between the source (S) and D's zones; these are called \emph{request zones}.
+A failed request, caused by events such as peers residing outside of the tear-drop shaped expected zones, recover by simply flooding the whole network.
+To deliver messages, the following steps are performed:
+\begin{itemize}
+ 	\item Draw a minimum sized rectangle to include the expected zone circle and S
+	\item A node only forwards if it is closer than the previous node + $\delta$, where $\delta$ is a configurable parameter (0 in their simulations) to avoid local minima.
+\end{itemize}
+
+%Simple random walk models, no waiting in between, varied speeds and distances.
+%No transmission errors, or channel contention.
+%Increased error seems to have little effect on number of routing packets sent per data packet: likely due to increasing expected zone size for higher error.
+
+The authors also present several possible optimizations to their protocol.
+One is to use larger request zones, gradually increasing their size after failures.
+Another is adapting the request zone at intermediate nodes if they have better info about location.
+They also propose propagating speed/location information by piggybacking on other packets.
+Furthermore, intermediate nodes detecting route failures could possibly initialize a local search to decrease request zone size.
+
+A method for multicasting messages to a geographic region is proposed in \cite{749282}.
+They define a forwarding zone so that all nodes in that zone will forward a multi-cast packet via flooding to the actual multi-cast region, which is the target region.
+These concepts are depicted in Figure \ref{fig:multicast-region}.
+They define two schemes for regional multicasting:
+\begin{itemize}
+\item \textbf{Rectangle:} the source defines a rectangular region and nodes within it will forward the message .
 They include a parameter, $\delta$, to increase the size of the rectangle so that the source and multi-cast region are not on the very edges of the rectangle.          
-Non-explicit: the source includes information about the multi-cast region and source's location.  Intermediate nodes forward the packet if they are at most $\delta$ (a different parameter from the first scheme) farther away from the destination region's geographic center than the previous hop.
+\item \textbf{Non-explicit:} the source includes information about the multi-cast region and source's location.
+Intermediate nodes forward the packet if they are at most $\delta$ (a different parameter from the first scheme) farther away from the destination region's geographic center than the previous hop.
+\end{itemize}
 Their simulation results show that the first scheme is generally more accurate (in terms of the number of nodes in the multicast region that receive the message).
 They found that the scheme's accuracy is comparable with that of multicast flooding, while having less overhead.
 
@@ -280,33 +315,52 @@ They found that the scheme's accuracy is comparable with that of multicast flood
 \caption{Depiction of multicast region and forwarding zone}
 \end{figure}
 
-\cite{Yu01geographicaland} Use greedy forwarding, but to address holes in the network they use a learned cost function of forwarding to the destination for each neighbor.  Once packet reaches the target region, the data is diffused through either recursive geographic forwarding or restricted flooding.  The latter is better in less dense networks.
+The concept of \emph{mobicast} is presented in \cite{Huang2005}.
+It consists of delivering messages to a moving geographic region.
+Initially, packets are forwarded as soon as possible (ASAP) when a node is within or adjacent to the current delivery zone.
+If it is not, the node will enter timed forwarding and will wait to forward the message until it or one of its neighbors is within the delivery zone, taking expected latency into account.
+This is referred to as just in time (JIT) forwarding.
+%To aintaining a spatial neighborhood as the set of nodes in all faces adjacent to the node except itself.
 
-\cite{Ko98location-aidedrouting} Assumptions        
-Assumes GPS is free from error
-Destination (D) assumed to be in some circular region, whose radius is defined based on D's velocity, which is assumed known to all nodes.
-Route requests        
-Route request  only forwarded if node is within expected zone, so other zones are added to fill gap between S and D's zones: request zones.
-Failed request (such as peers residing outside of the tear-drop shaped expected zones) recover by simply flooding the whole network.
-2 algorithms for determining node's zone
-1) Draw a minimum sized rectangle to include the expected zone circle and S
-2) Only forward if node is closer than the previous node + $\delta$, where $\delta$ is a configurable parameter (0 in their simulations) to avoid local maximums.
-Simulation        
-Simple random walk models, no waiting in between, varied speeds and distances.
-No transmission errors, or channel contention.
-Increased error seems to have little effect on number of routing packets sent per data packet: likely due to increasing expected zone size for higher error.
-Optimizations        
-Larger request zones, gradually increasing request zone size after failures.
-Adapting request zone at intermediate nodes if they have better info about location.
-Propagating speed/location information by piggybacking on other packets.
-Intermediate nodes detecting route failures can initialize a local search to decrease request zone size.
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\section{Geometric Routing}
+
+To address some of the shortcomings of greedy forwarding, several works have proposed techniques for routing based on geometric graphs.
+Such strategies make use of the structural properties of a network to make guarantees on efficiency, delivery time, etc.
+One of the first to do so is \cite{Kranakis99compassrouting}, which introduced \emph{compass routing}.
+In this scheme, a graph is constructed to represent the network in which each vertex is a node and an edge represents a pair of nodes' ability to communicate with each other.
+When a node receives a packet along an ingress link, it forwards it along the egress link next in counter-clockwise order from the ingress link, as shown in Figure \ref{fig:right-hand-rule}.
+This is sometimes referred to as the \emph{right-hand rule} or \emph{face routing}.
+
+\begin{figure}
+\label{fig:right-hand-rule}
+\centering
+\includegraphics[width=\colwidth]{\imagepath/right_hand_rule}
+\caption{The right-hand rule: forward packet along next counter-clockwise edge. Analogous to following the right hand wall in a maze.}
+\end{figure}
+
+Because compass routing requires a planar graph to perform correctly, \cite{Kim:2005:GRM:1251203.1251219} proposed a protocol that eliminates cross-links (links between two pairs of nodes that cross).
+They use probing and the right-hand rule of traversing faces in order to create a planar graph and facilitate geographic routing using face following.
+
+Several works use a hybrid of greedy distance-based and compass routing.
+In \cite{Kuhn2003}, a message explores the face within a bounded region, enlarging that region if it reaches the end and must turn back before reaching destination.
+Maintain a counter of how many nodes closer and farther they reach when in face routing mode.
+They also show that a route along a Clustered Backbone Graph, in which regular nodes cluster around nearby backbone routing nodes, is longer than the optimal path by a constant factor only.
+Their research also found that they must explore complete boundary of current face in order to remain asymptotically optimal.
+Therefore, a node cannot simply switch back to greedy when the message finds a closer node.
+%Formally prove that it is worst-case asymptoticaly optimal.
+
+A similar technique is used in \cite{Karp2000}, in which nodes greedily routes packets such that each hop becomes progressively closer to destination.
+They address local minima by switching to compass routing mode.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \section{Trajectory-based Routing}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-Several recent studies ( \cite{Niculescu2003} \cite{Niculescu2004} \cite{Yuksel2006} ) had concentrated on Trajectory-based Routing (TBR) which serves as a middle ground between source-based routing and greedy forwarding. The sender node would encode trajectory to packets upon transmission, whereas the intermediate nodes would perform greedy forwarding based on the trajectory information it decodes in the 
+Several recent studies ( \cite{Niculescu2003} \cite{Niculescu2004} \cite{Yuksel2006} ) had concentrated on Trajectory-based Routing (TBR) which serves as a middle ground between source-based routing and greedy forwarding. The sender node would encode trajectory to packets upon transmission (shown in Figure \ref{fig:trajectory}), whereas the intermediate nodes would perform greedy forwarding based on the trajectory information it decodes in the 
 packets that have been received. TBR has been attracting attentions in the academic field for the following reasons. First of all, the very idea of TBR is well-suited for overlay routing schemes since trajectory information could be not obtained directly from the network layer. For application-based overlay networks, TBR enables
 the application layer provides the trajectory information for routing. Moreover, for scenarios like geo-routing protocols that specify certain geological area on route are needed when emergency occurs, TBR would serve this purpose better than other routing schemes. Last but not least, TBR is not only designed for wireless mesh network but also 
 large scale wired network, which suite the purpose of our research.
@@ -325,29 +379,6 @@ Important earlier papers like \cite{Basagni1998} had laid out several import fea
 only be flooded within the given FZ so as to reduce the oervall network traffic. The shape of the FZ could depend on what the specific protocol demands, it could be triagular, rectangular or something else. However, the protocols utilizing FZ is different on how to forward packets. Protocols like \cite{Basagni1998} utilize basic greedy forwarding within
 the FZ, i.e. the node will flood its all one-hop neighbours within the FZ. On the other hand, protocols like \cite{Liao} deploy an election scheme. Every grid (FZ) would elect an agent to forward the packet to other grids (FZs). The agent-based forwarding would reduce some redundancy caused by agentless flooding, however the control overhead 
 introduced in the election procedure cannot be ignored.
-
-\section{Geometric Routing}
-
-\cite{Kranakis99compassrouting} introduced \emph{compass routing}
-
-\begin{figure}
-\label{fig:right-hand-rule}
-\centering
-\includegraphics[width=\colwidth]{\imagepath/right_hand_rule}
-\caption{The right-hand rule: forward packet along next counter-clockwise edge. Analogous to following the right hand wall in a maze.}
-\end{figure}
-
-\cite{Kim:2005:GRM:1251203.1251219} Protocol eliminates cross-links (links between two pairs of nodes that cross) using probing and the 'right-hand rule' of traversing faces in order to create a planar graph and facilitate geographic routing using face following.
-
-\cite{Kuhn2003} Uses a hybrid of greedy distance-based routing and right-hand rule.
-Explore the face within a bounded region, enlarging that region if they reach its end and must turn back before reaching destination.
-Maintain a counter of how many nodes closer and farther they reach when in face routing mode.
-They also show that a route along a Clustered Backbone Graph (regular nodes cluster around nearby backbone routing nodes) is longer than the optimal path by a constant factor only
-Found that they must explore complete boundary of current face in order to remain asymptotically optimal.
-So they can't just switch back to greedy when the message finds a closer node.
-Formally prove that it is worst-case asymptoticaly optimal.
-
-\cite{Karp2000} Greedily routes packets such that each hop becomes progressively closer to destination.  Addresses 'local maxima' by switching to perimeter mode in which packets are routed around faces of the polygons comprising the planar embedding of a graph (possibly a subgraph since crossing links cause problems) using the right-hand rule (counter-clockwise edge from the ingress as the egress link).
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
