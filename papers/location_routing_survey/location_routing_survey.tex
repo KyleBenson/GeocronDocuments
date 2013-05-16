@@ -215,7 +215,7 @@ However, one can imagine situations in which maintaining knowledge of the networ
 %
 Moreover, it is not only the newly fledged wireless network but also the long existing wired network need a new thinking on routing. For wired networks, how to cope with emergency situation like link failure happens when earthquake or tsunami occurs. It takes long hours and high labor cost for current routing protocols to recover from failure. Black spots in the abstract routing topology may not be easily detected and the reconstruction of the network topology could be still error-prone.
 %
-Therefore it is important to investigate new routing designs to keep up with the challenge. In this survey paper, we have looked into areas such as location service based routing,  Greedy Forwarding, Trajectory-based routing, Zone Forwarding (Agent/Agent-less),   Geometric Routing, Clustering and so on, to grasp the recent development in the academia field.
+Therefore it is important to investigate new routing designs like location-based routing techniques to keep up with the challenge. In this survey paper, we have looked into various areas regarding location-based routing, and categorized those routing techniques in different areas into the following sections: Location Service,  Greedy Forwarding, Trajectory-based routing, Zone Forwarding (Agent/Agent-less),   Geometric Routing, Clustering. The conclusion of this survey is provided at the end of this paper.
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -326,6 +326,7 @@ only be flooded within the given FZ so as to reduce the oervall network traffic.
 the FZ, i.e. the node will flood its all one-hop neighbours within the FZ. On the other hand, protocols like \cite{Liao} deploy an election scheme. Every grid (FZ) would elect an agent to forward the packet to other grids (FZs). The agent-based forwarding would reduce some redundancy caused by agentless flooding, however the control overhead 
 introduced in the election procedure cannot be ignored.
 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \section{Geometric Routing}
 
 \cite{Kranakis99compassrouting} introduced \emph{compass routing}
@@ -456,9 +457,11 @@ The intuition here is that the failure is likely nearby the node or along the pa
 
 \section{Conclusion}
 \label{conclusion}
-As what is illustrated above, several studies have been done regarding location-based routing, of which a large amount have dealt with the wireless network. It is important to identify the differences between wireless and wired network. For routing protocols that involve wireless network, there are several aspects that need to be taken into consideration
+As what are illustrated above, several studies have been done regarding location-based routing, of which a large amount have dealt with the wireless network. It is important to identify the differences between wireless and wired network. For routing protocols that involve wireless network, there are several aspects that need to be taken into consideration
 such as the hop count, the constant changing of topology, the hidden node effect, the high transmission loss rate and so on. However when an overlay routing scheme built on a wired network is considered, certain methods that could not be used in wireless network due to the limits mentioned before, could become useful. For instance, the packet overhead is
-not so much a big problem in wired network, and the hop count issue could be ignored as well. Admittedly, problems like overhead introduced by node election, network convergency and so on, are universal regardless wired or wireless network.
+not so much a big problem in wired network, and the hop count issue could be ignored as well. Admittedly, problems like overhead introduced by node election, network convergence and so on, are universal regardless wired or wireless network. 
+%
+The location-based routing technique 
 
 % use section* for acknowledgement
 %\section*{Acknowledgment}
