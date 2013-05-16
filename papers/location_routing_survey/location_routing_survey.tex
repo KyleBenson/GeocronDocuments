@@ -253,13 +253,6 @@ Each node sends updated information (outside the order-1 square since those are 
 The number of updates is proportional to the node's speed in order to avoid stale information caused by high mobility.
 To handle query failures due to nodes leaving a region, forwarding pointers are left behind, which are piggy-backed on the HELLO messages.
 
-\begin{figure}
-\label{fig:location-service}
-\centering
-\includegraphics[width=\colwidth]{../../images/external/location_routing/location_service.pdf}
-\caption{Hierarchical grid with 4 order-i squares in order-i+1 square.}
-\end{figure}
-
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \section{Greedy Forwarding}
@@ -389,7 +382,9 @@ introduced in the election procedure cannot be ignored.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \section{Clustering}
-Clustering is an important issue in location-based routing ,especially in geo-routing. The intermediate nodes are organized into clusters (or zones, grids) to perform forwarding.
+
+Clustering is an important issue in location-based routing, especially in geo-routing. The intermediate nodes are organized into clusters (or zones, grids) to perform forwarding.
+This improves efficiency and scalability, especially important for larger and more mobile networks.
 
 A modified AODV with expected transmission count (ETX) instead of minimum hop count is proposed in \cite{Al-Rabayah2010}.
 Intermediate nodes can repair routes locally instead of notifying about their failure.
@@ -397,21 +392,29 @@ The data packets are buffered to destination until a suitable path is found, whi
 
 Moreover, the protocol proposed in the paper is designed to gracefully degrade to reactive flooding algorithm in the absence of location information by simply flooding if no neighbors are deemed closer to the destination.
 This may occur because they are actually farther away or because their location information isn't available.
-The former case can arise when there is a void in the network and the latter if node has no GPS device or it is malfunctioning.
+The former case can arise when there is a void in the network and the latter if the node has no GPS device or it is malfunctioning.
 
-Two levels of routing intra- and inter-zone routing are proposed in \cite{779923} .
-Intra-zone routing is done proactively (like link state routing protocols)
-An inter-zone clustering protocol would be ran and update with information about inter-zone links periodically.
-However the paper does not  provide information about exact location of destination within a zone.
+Two levels of routing, intra- and inter-zone, are proposed in \cite{779923}.
+Intra-zone routing is done proactively (like link state routing protocols).
+An inter-zone clustering protocol runs and updates with information about inter-zone links periodically.
+However, the paper does not  provide information about the exact location of destination within a zone.
+Instead, the message is routed to that zone and then a node within it handles delivery to the final destination.
 
-GRID, which is proposed in \cite{Liao01grid:a}, is a reactive routing protocol where geographic region divided into logical grids, each a square, with an elected leader of each grid.
-It avoids broadcast storm since only the leader of each grid handles routing (density-agnostic). 
-However as the number of grids approaches the number of hosts, it's back to normal flooding.
-Each grid is same size: chosen based on transmission range and whether source in a grid can talk to 4 or 8 of the neighboring grids, with destination gateways in center or anywhere in those grids.
+GRID, which is proposed in \cite{Liao01grid:a}, is a reactive routing protocol where a geographic region is divided into logical grids, each a square, with an elected leader of each grid.
+It avoids broadcast storms since only the leader of each grid handles routing (density-agnostic). 
+However as the number of grids approaches the number of hosts, it returns to normal flooding.
+Each grid is the same size and is chosen based on transmission range and whether the source in a grid can talk to 4 or 8 of the neighboring grids, with destination gateways preferably in the center or anywhere in those grids.
 There is a trade-off between the sizes as too big will make it hard to reach the next grid neighbor whereas too small results in higher overhead and a decreased probability of a node being available to fill a gateway position.
-For routing GRID employs zone-based version of AODV, where RREQs have a range parameter to define search area.
-The zones could be confined by 4 shapes: rectangle, bar from S to D with some width, fan with angle and radius, overlap of 2 fans.
-Gateways  are chosen as the node closest to center of zone. A node would remain as a gateway until leaving zone.
+For routing, GRID employs a zone-based version of AODV, where route requests have a range parameter to define a search area.
+The zones could be confined by 4 shapes: 
+\begin{itemize}
+\item Rectangle
+\item Bar from source to destination with some width
+\item Fan with angle and radius
+\item Overlap of 2 fans
+\end{itemize}
+
+Gateways  are chosen as the node closest to center of zone. A node would remain as a gateway until leaving the zone.
 If a node hasn't heard from a gateway in a while, it will broadcast a packet: the gateway replies if still there and other nodes that are closer to center reply so that after some time a new gateway is chosen if the old one left.
 Because broadcast is unreliable, if two gateways exist, one will silently step down when it hears a GATE packet from a closer gateway.
 GATE packets every 10 seconds.
@@ -419,7 +422,7 @@ GATE packets every 10 seconds.
 A subset of nodes that are GPS-enabled form a backbone in \cite{Zaruba2003}, handling routing and proactively exchanging link information with each other.
 Other nodes belong to the zone surrounding one of these G-nodes.
 They assume the same location as the nearby G-node, but may be a few hops away.
-The virtual backbone is formed by a root G-node sending messages to nearby zones until all are a part of the virtual backbone.
+The virtual backbone is formed by a root G-node sending messages to nearby zones until all are a part of the virtual backbone, as shown in Figure \ref{fig:labar-routing}.
 G-nodes translate IP addresses to geographic locations, determines a vector towards the destination, and instructs the source node how to route the message to a nearby zone closest to this vector.
 If this forwarding fails, the source is notified and the packet is forwarded along the backbone.
 
@@ -430,7 +433,9 @@ If this forwarding fails, the source is notified and the packet is forwarded alo
 \caption{Routing in LABAR}
 \end{figure}
 
-\cite{Rodoplu} Nodes pairs are associated with 'relay regions', which are the nodes around the sender which are more energy efficient to send through than directly to the receiver.  The 'enclosure' of a node is then defined as all of the relay regions it can reach.  The protocol establishes a sub-network that will require less power and has fewer nodes for reaching some destination.  This is accomplished by first creating a sparse graph representing all of the enclosures in each transmitting node in the network, which is done through local computation.  This graph contains globally optimal links (in terms of energy), which are then fed into a distributed Bellmann-Ford algorithm with power consumption as the cost metric.  This algorithm is self-configuring and can respond to failures and mobile nodes.  It was originally designed for mobile p2p networks, but is highly applicable to sensor networks as well.
+In \cite{Rodoplu}, node pairs are associated with \emph{relay regions}, which are the nodes around the sender that are more energy efficient to send through than directly to the receiver.
+The \emph{enclosure} of a node is then defined as all of the relay regions it can reach.  The protocol establishes a sub-network that will require less power and has fewer nodes for reaching some destination.
+This is accomplished by first creating a sparse graph representing all of the enclosures in each transmitting node in the network, which is done through local computation.  This graph contains globally optimal links (in terms of energy), which are then fed into a distributed Bellmann-Ford algorithm with power consumption as the cost metric.  This algorithm is self-configuring and can respond to failures and mobile nodes.  It was originally designed for mobile p2p networks, but is highly applicable to sensor networks as well.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
