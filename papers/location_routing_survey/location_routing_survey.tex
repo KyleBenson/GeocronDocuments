@@ -9,11 +9,19 @@
 
 % *** GRAPHICS RELATED PACKAGES ***
 %
+
+% % % % % MACROS  % % % % % % %
+\newcommand{\imagepath}{../../images/external/location_routing}
+\newcommand{\colwidth}{2.6in}
+% % % % % % % % % % % % % % % %
+
 \ifCLASSINFOpdf
   \usepackage[pdftex]{graphicx}
+  \graphicspath{{../../images/external/location_routing}{../../images/}}
+
   % declare the path(s) where your graphic files are
   % ../.. is the GeocronDocuments directory
-  \graphicspath{{../../images/external/location_routing}{../../images/}}
+
   % and their extensions so you won't have to specify these with
   % every instance of \includegraphics
   \DeclareGraphicsExtensions{.pdf,.png}
@@ -231,6 +239,13 @@ The number of updates is proportional to the node's speed.
 To handle query failures due to nodes leaving a region, forwarding pointers are left behind.
 These pointers are piggy-backed on the HELLO messages.
 
+\begin{figure}
+\label{fig:location-service}
+\centering
+\includegraphics[width=\colwidth]{../../images/external/location_routing/location_service.pdf}
+\caption{Hierarchical grid with 4 order-i squares in order-i+1 square.}
+\end{figure}
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \section{Greedy Forwarding}
@@ -241,14 +256,27 @@ If it is not, the node will enter timed forwarding and will wait to forward the 
 This is referred to as just in time (JIT) forwarding.
 Uses both greedy and face routing, maintaining a spatial neighborhood as the set of nodes in all faces adjacent to the node except itself.
 
+\begin{figure}
+\label{fig:network-void}
+\centering
+\includegraphics[width=\colwidth]{\imagepath/void}
+\caption{A void in a network (roughly centered at F, outlined in red) may disrupt greedy forwarding}
+\end{figure}
 
 \cite{749282} They define a forwarding zone so that all nodes in that zone will forward a multi-cast packet via flooding to the actual multi-cast region, which is the target region.
 Two schemes for multicasting:          
 Rectangle: source defines a rectangular region and nodes in that region will forward them. 
-They include a parameter, \delta, to increase the size of the rectangle so that the source and multi-cast region are not on the very edges of the rectangle.          
-Non-explicit: the source includes information about the multi-cast region and source's location.  Intermediate nodes forward the packet if they are at most \delta (a different parameter from the first scheme) farther away from the destination region's geographic center than the previous hop.
+They include a parameter, $\delta$, to increase the size of the rectangle so that the source and multi-cast region are not on the very edges of the rectangle.          
+Non-explicit: the source includes information about the multi-cast region and source's location.  Intermediate nodes forward the packet if they are at most $\delta$ (a different parameter from the first scheme) farther away from the destination region's geographic center than the previous hop.
 Their simulation results show that the first scheme is generally more accurate (in terms of the number of nodes in the multicast region that receive the message).
 They found that the scheme's accuracy is comparable with that of multicast flooding, while having less overhead.
+
+\begin{figure}
+\label{fig:multicast-region}
+\centering
+\includegraphics[width=\colwidth]{\imagepath/geocast_region}
+\caption{Depiction of multicast region and forwarding zone}
+\end{figure}
 
 \cite{Yu01geographicaland} Use greedy forwarding, but to address holes in the network they use a learned cost function of forwarding to the destination for each neighbor.  Once packet reaches the target region, the data is diffused through either recursive geographic forwarding or restricted flooding.  The latter is better in less dense networks.
 
@@ -260,11 +288,11 @@ Route request  only forwarded if node is within expected zone, so other zones ar
 Failed request (such as peers residing outside of the tear-drop shaped expected zones) recover by simply flooding the whole network.
 2 algorithms for determining node's zone
 1) Draw a minimum sized rectangle to include the expected zone circle and S
-2) Only forward if node is closer than the previous node + \delta, where \delta is a configurable parameter (0 in their simulations) to avoid local maximums.
+2) Only forward if node is closer than the previous node + $\delta$, where $\delta$ is a configurable parameter (0 in their simulations) to avoid local maximums.
 Simulation        
 Simple random walk models, no waiting in between, varied speeds and distances.
 No transmission errors, or channel contention.
-Increased error seems to have little effect on # routing packets sent per data packet: likely due to increasing expected zone size for higher error.
+Increased error seems to have little effect on number of routing packets sent per data packet: likely due to increasing expected zone size for higher error.
 Optimizations        
 Larger request zones, gradually increasing request zone size after failures.
 Adapting request zone at intermediate nodes if they have better info about location.
@@ -281,18 +309,32 @@ packets that have been received. TBR has been attracting attentions in the acade
 the application layer provides the trajectory information for routing. Moreover, for scenarios like geo-routing protocols that specify certain geological area on route are needed when emergency occurs, TBR would serve this purpose better than other routing schemes. Last but not least, TBR is not only designed for wireless mesh network but also 
 large scale wired network, which suite the purpose of our research.
 
+\begin{figure}
+\label{fig:trajectory}
+\centering
+\includegraphics[width=\colwidth]{\imagepath/trajectory}
+\caption{Forwarding along a trajectory}
+\end{figure}
+
 
 \section{Agent/Agentless Zone Forwarding}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-Important earlier papers like \site{DREAM} had laid out several import features regarding geocast protocol design, one of which is forwarding zone. In order to avoid flooding the whole ad hoc network, protocols like \site{DREAM}, \site{GAMER}, \site{GEOGRID} and so on devide the network into several Forwarding Zones (FZ). Geocast messages would 
-only be flooded within the given FZ so as to reduce the oervall network traffic. The shape of the FZ could depend on what the specific protocol demands, it could be triagular, rectangular or something else. However, the protocols utilizing FZ is different on how to forward packets. Protocols like \site{DREAM} utilize basic greedy forwarding within
-the FZ, i.e. the node will flood its all one-hop neighbours within the FZ. On the other hand, protocols like \site{GEOGRID} deploy an election scheme. Every grid (FZ) would elect an agent to forward the packet to other grids (FZs). The agent-based forwarding would reduce some redundancy caused by agentless flooding, however the control overhead 
-introduced in the election procedure cannot be ignored.
+%Important earlier papers like \site{DREAM} had laid out several import features regarding geocast protocol design, one of which is forwarding zone. In order to avoid flooding the whole ad hoc network, protocols like \site{DREAM}, \site{GAMER}, \site{GEOGRID} and so on devide the network into several Forwarding Zones (FZ). Geocast messages would 
+%only be flooded within the given FZ so as to reduce the oervall network traffic. The shape of the FZ could depend on what the specific protocol demands, it could be triagular, rectangular or something else. However, the protocols utilizing FZ is different on how to forward packets. Protocols like \site{DREAM} utilize basic greedy forwarding within
+%the FZ, i.e. the node will flood its all one-hop neighbours within the FZ. On the other hand, protocols like \site{GEOGRID} deploy an election scheme. Every grid (FZ) would elect an agent to forward the packet to other grids (FZs). The agent-based forwarding would reduce some redundancy caused by agentless flooding, however the control overhead 
+%introduced in the election procedure cannot be ignored.
 
 \section{Geometric Routing}
 
 \cite{Kranakis99compassrouting} introduced \emph{compass routing}
+
+\begin{figure}
+\label{fig:right-hand-rule}
+\centering
+\includegraphics[width=\colwidth]{\imagepath/right_hand_rule}
+\caption{The right-hand rule: forward packet along next counter-clockwise edge. Analogous to following the right hand wall in a maze.}
+\end{figure}
 
 \cite{Kim:2005:GRM:1251203.1251219} Protocol eliminates cross-links (links between two pairs of nodes that cross) using probing and the 'right-hand rule' of traversing faces in order to create a planar graph and facilitate geographic routing using face following.
 
@@ -326,7 +368,7 @@ Does not give information about exact location of destination within a zone and 
 \cite{Liao01grid:a} GRID is reactive.
 Geographic region divided into logical grids, each a square, with an elected leader of each grid.
 Avoids broadcast storm since only the leader of each grid handles routing (density-agnostic).
-NOTE: as #grids approaches #hosts, it's back to normal flooding!
+NOTE: as the number of grids approaches the number of hosts, it's back to normal flooding!
 Grids        
 Each grid is same size: chosen based on transmission range and whether source in a grid can talk to 4 or 8 of the neighboring grids, with destination gateways in center or anywhere in those grids.
 There is a trade-off between the sizes as too big will make it hard to reach the next grid neighbor whereas too small results in higher overhead and a decreased probability of a node being available to fill a gateway position.
@@ -348,37 +390,74 @@ The virtual backbone is formed by a root G-node sending messages to nearby zones
 G-nodes translate IP addresses to geographic locations, determines a vector towards the destination, and instructs the source node how to route the message to a nearby zone closest to this vector.
 If this forwarding fails, the source is notified and the packet is forwarded along the backbone.
 
+\begin{figure}
+\label{fig:labar-routing}
+\centering
+\includegraphics[width=\colwidth]{\imagepath/labar.pdf}
+\caption{Routing in LABAR}
+\end{figure}
+
 \cite{Rodoplu} Nodes pairs are associated with 'relay regions', which are the nodes around the sender which are more energy efficient to send through than directly to the receiver.  The 'enclosure' of a node is then defined as all of the relay regions it can reach.  The protocol establishes a sub-network that will require less power and has fewer nodes for reaching some destination.  This is accomplished by first creating a sparse graph representing all of the enclosures in each transmitting node in the network, which is done through local computation.  This graph contains globally optimal links (in terms of energy), which are then fed into a distributed Bellmann-Ford algorithm with power consumption as the cost metric.  This algorithm is self-configuring and can respond to failures and mobile nodes.  It was originally designed for mobile p2p networks, but is highly applicable to sensor networks as well.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \section{Wired Networks}
 
-\cite{Navas1997} cites an earlier paper proposing the location information additions to IP.
-They proposed, in an IETF RFC, geographic routers, geographic multi-cast, and a Domain Name System approach.
-Regions defined as points, circles, or polygons consisting of points.
-3 main components:
-GeoRouter - routes packets, is responsible for some region
-GeoNode - handles storing/forwarding data to the smaller region it is responsible for
-GeoHost - the actual process running on end hosts 
-Routers use a caching mechanism with timeouts indexed by H(message_id).
-Routers determine their service area by finding the convex hull of all the children's service areas, which are polygons, in order to avoid inefficiencies introduced by concave polygons and those with holes.
-If a message is destined for an area a router doesn't serve, it forwards the message to its parent router. 
-Experimental results reveal some improvements in routing, mostly due to checking polygons' intersections.
+While location-based routing in wired networks has predominately been overlooked in the literature, a few works have proposed various such techniques.
+They typically address delivering messages to specific regions or avoiding geographically-correlated failures in the network.
 
-\cite{Finn1987} cartesian routing (MAYBE?)
+In \cite{Navas1997}, the authors proposed, in an IETF RFC, an infrastructure for geographic multicast.
+They proposed several possible approaches:
+\begin{itemize}
+\item Geographic routers
+\item Geographic multi-cast
+\item Domain Name System
+\end{itemize}
 
-\cite{Kim2010} Kyungbaek's geo-failures paper
+They implemented the first approach, geographic routers, for routing messages to specific locations.
+Regions are defined as points, circles, or polygons consisting of points.
+The system consists of 3 main components:
+\begin{itemize}
+\item GeoRouter - routes packets and is responsible for some region
+\item GeoNode - handles storing/forwarding data to the smaller region it is responsible for
+\item GeoHost - the actual processes running on end hosts 
+\end{itemize}
 
-perhaps include GeoPeer???
+GeoRouters use a caching mechanism with timeouts indexed by the hash of the message ID.
+They determine their service area by finding the convex hull of all the children's service areas, which are polygons, in order to avoid inefficiencies introduced by concave polygons and those with holes.
+If a message is destined for an area a router doesn't serve, it forwards the message to its parent router.
+Experimental results reveal some improvements in routing, mostly due to more efficiently checking polygons' intersections.
+
+In \cite{Kim2010}, the effects of geographically-correlated failures on overlay-based data dissemination are considered.
+Overlay neighbors are chosen to minimize the number of routers along the paths that are closer than some threshold distance.
+The authors base this choice on the intuition that regional failures are more likely to affect multiple nodes in close proximity, as shown in Figure \ref{fig:geo-failure} and so the path choices should be more diverse.
+
+\begin{figure}
+\label{fig:geo-failure}
+\centering
+\includegraphics[width=\colwidth]{\imagepath/geo_failures_kyungbaek.pdf}
+\caption{Different overlay links may share the same underlay links/nodes}
+\end{figure}
+
+Contrary to \cite{Kim2010}, the authors in \cite{Benson2013} consider that the underlying network topology may be unknown or inaccurate.
+They study the scenario of delivering data from a seismic sensor network during a powerful earthquake that may damage telecommunications infrastructure.
+To route around a perceived failure, they propose a heuristic, depicted in Figure \ref{fig:orthogonal-path}, that chooses an intermediary overlay hop as being far away from the straight line path from the reporting sensor to the server it wishes to contact.
+The intuition here is that the failure is likely nearby the node or along the path to the server and so avoiding that path as much as possible by routing along a trajectory angled away from it should improve the chance of data delivery.
+
+\begin{figure}
+\label{fig:orthogonal-path}
+\centering
+\includegraphics[width=\colwidth,angle=-90]{\imagepath/../../diagrams/angular_path.pdf}
+\caption{To avoid the failure along the path to the server, packets are routed along a trajectory angled away from that straight line path}
+\end{figure}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \section{Conclusion}
 \label{conclusion}
-As what is illustrated above, several studies have been done regarding location-based routing, of which a large amount have dealt with the wireless network. It is important to identify the differences between wirelss and wired network. For routing protocols that involve wireless network, there are several aspects that need to be taken into consideration
+As what is illustrated above, several studies have been done regarding location-based routing, of which a large amount have dealt with the wireless network. It is important to identify the differences between wireless and wired network. For routing protocols that involve wireless network, there are several aspects that need to be taken into consideration
 such as the hop count, the constant changing of topology, the hidden node effect, the high transmission loss rate and so on. However when an overlay routing scheme built on a wired network is considered, certain methods that could not be used in wireless network due to the limits mentioned before, could become useful. For instance, the packet overhead is
-not so much a big problem in wired network, and the hop count issue could be ignored as well. Admittedly, problems like overhead introduced by node election, network convegency and so on, are universal regardless wired or wirelss network.
+not so much a big problem in wired network, and the hop count issue could be ignored as well. Admittedly, problems like overhead introduced by node election, network convergency and so on, are universal regardless wired or wireless network.
 
 % use section* for acknowledgement
 %\section*{Acknowledgment}
@@ -400,7 +479,7 @@ not so much a big problem in wired network, and the hop count issue could be ign
 %
 %\begin{figure}[!t]
 %\centering
-%\includegraphics[width=2.5in]{myfigure}
+%\includegraphics[width=\colwidth]{myfigure}
 % where an .eps filename suffix will be assumed under latex, 
 % and a .pdf suffix will be assumed for pdflatex; or what has been declared
 % via \DeclareGraphicsExtensions.
