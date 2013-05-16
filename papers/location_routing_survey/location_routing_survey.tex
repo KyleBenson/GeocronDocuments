@@ -210,11 +210,11 @@ Some communication paradigms, such as multicast and broadcast, relax this assump
 In order to route these messages, intermediate nodes must know the next hop along the path to $B$.
 This requires knowledge of the network topology, either partial or full.
 Protocols to establish this knowledge typically include link-state (knowledge of full paths) or distance-vector (knowledge of the next hop towards a given destination) algorithms, although others exist such as label-switching, which requires preconfiguring labels to correspond to particular paths, interfaces, etc.
-%
+
 However, one can imagine situations in which maintaining knowledge of the network topology may be unfeasible, such as mobile ad-hoc networks (MANETs), where the nodes are constantly moving. To maintain traditional routing protocols would be a rather difficult task under MANETs. For link-state protocols, the state update message flooding would simply paralyze the MANET, on the other hand distance-vector algorithms may not even work since the next hop may not even be there in the next moment. For wireless networks like MANETs, how to maintain a routing scheme that has lower overheads, could converge in constant time, and overcome the inherent problem introduced by wireless network itself such as high loss rate, is a huge challenge.
-%
+
 Moreover, it is not only the newly fledged wireless network but also the long existing wired network need a new thinking on routing. For wired networks, how to cope with emergency situation like link failure happens when earthquake or tsunami occurs. It takes long hours and high labor cost for current routing protocols to recover from failure. Black spots in the abstract routing topology may not be easily detected and the reconstruction of the network topology could be still error-prone.
-%
+
 Therefore it is important to investigate new routing designs like location-based routing techniques to keep up with the challenge. In this survey paper, we have looked into various areas regarding location-based routing, and categorized those routing techniques in different areas into the following sections: Location Service,  Greedy Forwarding, Trajectory-based routing, Zone Forwarding (Agent/Agent-less),   Geometric Routing, Clustering. The conclusion of this survey is provided at the end of this paper.
 
 
@@ -389,21 +389,22 @@ introduced in the election procedure cannot be ignored.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \section{Clustering}
+Clustering is an important issue in location-based routing ,especially in geo-routing. The intermediate nodes are organized into clusters (or zones, grids) to perform forwarding.
 
-\cite{Al-Rabayah2010} The paper's proposal uses modified AODV with expected transmission count (ETX) instead of minimum hop count.
+A modified AODV with expected transmission count (ETX) instead of minimum hop count is proposed in \cite{Al-Rabayah2010}.
 Intermediate nodes can repair routes locally instead of notifying about their failure.
-They buffer data packets to destination until they find a suitable path, which is done by either looking up if a path exists through one of their neighbors or by flooding the route repair packet to all neighbors and awaiting a reply.
+The data packets are buffered to destination until a suitable path is found, which is done by either looking up if a path exists through one of their neighbors or by flooding the route repair packet to all neighbors and awaiting a reply.
 
 Moreover, the protocol proposed in the paper is designed to gracefully degrade to reactive flooding algorithm in the absence of location information by simply flooding if no neighbors are deemed closer to the destination.
 This may occur because they are actually farther away or because their location information isn't available.
 The former case can arise when there is a void in the network and the latter if node has no GPS device or it is malfunctioning.
 
-\cite{779923} The paper provides two levels of routing: intra- and inter-zone routing.
+Two levels of routing intra- and inter-zone routing are proposed in \cite{779923} .
 Intra-zone routing is done proactively (like link state routing protocols)
 An inter-zone clustering protocol would be ran and update with information about inter-zone links periodically.
 However the paper does not  provide information about exact location of destination within a zone.
 
-\cite{Liao01grid:a} GRID is a reactive routing protocol where geographic region divided into logical grids, each a square, with an elected leader of each grid.
+GRID, which is proposed in \cite{Liao01grid:a}, is a reactive routing protocol where geographic region divided into logical grids, each a square, with an elected leader of each grid.
 It avoids broadcast storm since only the leader of each grid handles routing (density-agnostic). 
 However as the number of grids approaches the number of hosts, it's back to normal flooding.
 Each grid is same size: chosen based on transmission range and whether source in a grid can talk to 4 or 8 of the neighboring grids, with destination gateways in center or anywhere in those grids.
@@ -415,7 +416,7 @@ If a node hasn't heard from a gateway in a while, it will broadcast a packet: th
 Because broadcast is unreliable, if two gateways exist, one will silently step down when it hears a GATE packet from a closer gateway.
 GATE packets every 10 seconds.
 
-\cite{Zaruba2003} A subset of nodes that are GPS-enabled form a backbone, handling routing and proactively exchanging link information with each other.
+A subset of nodes that are GPS-enabled form a backbone in \cite{Zaruba2003}, handling routing and proactively exchanging link information with each other.
 Other nodes belong to the zone surrounding one of these G-nodes.
 They assume the same location as the nearby G-node, but may be a few hops away.
 The virtual backbone is formed by a root G-node sending messages to nearby zones until all are a part of the virtual backbone.
@@ -487,9 +488,9 @@ The intuition here is that the failure is likely nearby the node or along the pa
 
 \section{Conclusion}
 \label{conclusion}
-As illustrated above, several studies have been done regarding location-based routing in recent years, and progress has been made in many aspects. 
+As what are illustrated above, several studies have been done regarding location-based routing in recent years, and progress have been made in many aspects. 
 
-It is worth noting that a large amount of the researches have dealt with the wireless networks, especially mobile ad-hoc ones. It is important to identify the differences between wireless and wired networks. For routing protocols that involve wireless networks, there are several aspects that need to be taken into consideration
+It is worth noting that a large amount of the researches have dealt with the wireless network. It is important to identify the differences between wireless and wired network. For routing protocols that involve wireless network, there are several aspects that need to be taken into consideration
 such as the hop count, the constant changing of topology, the hidden node effect, the high transmission loss rate and so on. However these limitations are not always obstacles. For example, when an overlay routing scheme built on a wired network is considered, certain methods involving large packet overhead and hop count, that could not be used in wireless network due to the limits mentioned before, could become useful.  Admittedly, problems like overhead introduced by node election, network convergence, loop-avoidance and so on, are universal regardless wired or wireless network. 
 
 The location-based routing is very helpful in dealing with overlay networks, since location information usually could not be obtained from network layer. Location information-driven geo-routing would provide a more physical-matched topology to enhance the ability of network recovery.
