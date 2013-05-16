@@ -354,33 +354,27 @@ Formally prove that it is worst-case asymptoticaly optimal.
 
 \section{Clustering}
 
-\cite{Al-Rabayah2010} Uses modified AODV with expected transmission count (ETX) instead of minimum hop count.
+\cite{Al-Rabayah2010} The paper's proposal uses modified AODV with expected transmission count (ETX) instead of minimum hop count.
 Intermediate nodes can repair routes locally instead of notifying about their failure.
 They buffer data packets to destination until they find a suitable path, which is done by either looking up if a path exists through one of their neighbors or by flooding the route repair packet to all neighbors and awaiting a reply.
-Presents extensive communications complexity analysis.
-Designed to gracefully degrade to reactive flooding algorithm in the absence of location information by simply flooding if no neighbors are deemed closer to the destination.
+
+Moreover, the protocol proposed in the paper is designed to gracefully degrade to reactive flooding algorithm in the absence of location information by simply flooding if no neighbors are deemed closer to the destination.
 This may occur because they are actually farther away or because their location information isn't available.
 The former case can arise when there is a void in the network and the latter if node has no GPS device or it is malfunctioning.
 
-\cite{779923} two levels of routing: intra- and inter-zone
-intra-zone is done proactively (link state)
-Periodically, run an inter-zone clustering protocol and update with information about inter-zone links.
-Does not give information about exact location of destination within a zone and so still need to find that.
+\cite{779923} The paper provides two levels of routing: intra- and inter-zone routing.
+Intra-zone routing is done proactively (like link state routing protocols)
+An inter-zone clustering protocol would be ran and update with information about inter-zone links periodically.
+However the paper does not  provide information about exact location of destination within a zone.
 
-\cite{Liao01grid:a} GRID is reactive.
-Geographic region divided into logical grids, each a square, with an elected leader of each grid.
-Avoids broadcast storm since only the leader of each grid handles routing (density-agnostic).
-NOTE: as the number of grids approaches the number of hosts, it's back to normal flooding!
-Grids        
+\cite{Liao01grid:a} GRID is a reactive routing protocol where geographic region divided into logical grids, each a square, with an elected leader of each grid.
+It avoids broadcast storm since only the leader of each grid handles routing (density-agnostic). 
+However as the number of grids approaches the number of hosts, it's back to normal flooding.
 Each grid is same size: chosen based on transmission range and whether source in a grid can talk to 4 or 8 of the neighboring grids, with destination gateways in center or anywhere in those grids.
 There is a trade-off between the sizes as too big will make it hard to reach the next grid neighbor whereas too small results in higher overhead and a decreased probability of a node being available to fill a gateway position.
-Routing        
-Zone-based version of AODV.
-RREQs have a range parameter to define search area.
-They can also be confined by 4 shapes: rectangle, bar from S to D with some width, fan with angle and radius, overlap of 2 fans.
-Gateways        
-Chosen as node closest to center of zone.
-Remains a gateway until leaving zone.
+For routing GRID employs zone-based version of AODV, where RREQs have a range parameter to define search area.
+The zones could be confined by 4 shapes: rectangle, bar from S to D with some width, fan with angle and radius, overlap of 2 fans.
+Gateways  are chosen as the node closest to center of zone. A node would remain as a gateway until leaving zone.
 If a node hasn't heard from a gateway in a while, it will broadcast a packet: the gateway replies if still there and other nodes that are closer to center reply so that after some time a new gateway is chosen if the old one left.
 Because broadcast is unreliable, if two gateways exist, one will silently step down when it hears a GATE packet from a closer gateway.
 GATE packets every 10 seconds.
