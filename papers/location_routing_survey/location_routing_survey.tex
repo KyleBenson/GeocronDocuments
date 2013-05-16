@@ -276,7 +276,7 @@ Intermediate nodes detecting route failures can initialize a local search to dec
 \section{Trajectory Routing}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-Several recent studies had concentrated on Trajectory-based Routing (TBR) which serves as a middle ground between source-based routing and greedy forwarding. The sender node would encode trajectory to packets upon transmission, whereas the intermediate nodes would perform greedy forwarding based on the trajectory information it decodes in the 
+Several recent studies ( \cite{Niculescu2003} \cite{Niculescu2004} \cite{Yuksel2006} ) had concentrated on Trajectory-based Routing (TBR) which serves as a middle ground between source-based routing and greedy forwarding. The sender node would encode trajectory to packets upon transmission, whereas the intermediate nodes would perform greedy forwarding based on the trajectory information it decodes in the 
 packets that have been received. TBR has been attracting attentions in the academic field for the following reasons. First of all, the very idea of TBR is well-suited for overlay routing schemes since trajectory information could be not obtained directly from the network layer. For application-based overlay networks, TBR enables
 the application layer provides the trajectory information for routing. Moreover, for scenarios like geo-routing protocols that specify certain geological area on route are needed when emergency occurs, TBR would serve this purpose better than other routing schemes. Last but not least, TBR is not only designed for wireless mesh network but also 
 large scale wired network, which suite the purpose of our research.
@@ -285,9 +285,9 @@ large scale wired network, which suite the purpose of our research.
 \section{Agent/Agentless Zone Forwarding}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-Important earlier papers like \cite{Basagni1998} had laid out several import features regarding geocast protocol design, one of which is forwarding zone. In order to avoid flooding the whole ad hoc network, protocols like \cite{Basagni1998}, \cite{Camp2003}, \site{GEOGRID} and so on devide the network into several Forwarding Zones (FZ). Geocast messages would 
+Important earlier papers like \cite{Basagni1998} had laid out several import features regarding geocast protocol design, one of which is forwarding zone. In order to avoid flooding the whole ad hoc network, protocols like \cite{Basagni1998}, \cite{Camp2003}, \cite{Liao} and so on devide the network into several Forwarding Zones (FZ). Geocast messages would 
 only be flooded within the given FZ so as to reduce the oervall network traffic. The shape of the FZ could depend on what the specific protocol demands, it could be triagular, rectangular or something else. However, the protocols utilizing FZ is different on how to forward packets. Protocols like \cite{Basagni1998} utilize basic greedy forwarding within
-the FZ, i.e. the node will flood its all one-hop neighbours within the FZ. On the other hand, protocols like \site{GEOGRID} deploy an election scheme. Every grid (FZ) would elect an agent to forward the packet to other grids (FZs). The agent-based forwarding would reduce some redundancy caused by agentless flooding, however the control overhead 
+the FZ, i.e. the node will flood its all one-hop neighbours within the FZ. On the other hand, protocols like \cite{Liao} deploy an election scheme. Every grid (FZ) would elect an agent to forward the packet to other grids (FZs). The agent-based forwarding would reduce some redundancy caused by agentless flooding, however the control overhead 
 introduced in the election procedure cannot be ignored.
 
 \section{Geometric Routing}
