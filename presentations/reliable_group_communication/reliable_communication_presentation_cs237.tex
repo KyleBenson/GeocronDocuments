@@ -36,6 +36,8 @@
 \part{intro}
 
 \begin{frame}{Introduction}
+\begin{columns}
+\begin{column}{.5\textwidth}
 
 \begin{itemize}
 	\item Fault-tolerant communication goals
@@ -50,6 +52,13 @@
 		\item \textbf{Delivery} guarantees, bounds on latency
 	\end{itemize}
 \end{itemize}
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\includegraphics[width=\textwidth]{message_ordering}
+\end{column}
+
+\end{columns}
 \end{frame}
 
 % TODO: pic of msg ordering
@@ -135,12 +144,166 @@
 		\item Make application layer multicast
 		\item Let the \emph{middleware} handle delivering message to proper groups
 		\item Decouples machine address from distributed function target
+		\item More efficient network usage
 	\end{itemize}
 \end{itemize}
 \end{frame}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % %    BEGIN EXAMPLES % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
+% membership to groups, notification of who received message
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\begin{frame}{Reliable Group Communication}
+\begin{columns}
+\begin{column}{.5\textwidth}
+
+\begin{itemize}
+	\item Why not just use TCP?
+	\begin{itemize}
+		\item Consider 100 machines each running 10 processes
+		\item 1000+ TCP connections at each machine
+		\item 1 million+ total!
+		\alert{\item Not scalable!}
+		\item Relies on timeouts
+		\item Ordering harder
+		\item Similar problems with other client-server connection-oriented protocols
+	\end{itemize}
+	
+	\item How to exploit redundancy in communication paths?
+	\item Answer: multicast trees
+	
+\end{itemize}
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\includegraphics[width=\textwidth]{server_replica}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\begin{frame}{Reliable Group Communication}
+\begin{columns}
+\begin{column}{.5\textwidth}
+
+\begin{itemize}
+	\item Why not just use TCP?
+	\begin{itemize}
+		\item Consider 100 machines each running 10 processes
+		\item 1000+ TCP connections at each machine
+		\item 1 million+ total!
+		\alert{\item Not scalable!}
+		\item Relies on timeouts
+		\item Ordering harder
+		\item Similar problems with other client-server connection-oriented protocols
+	\end{itemize}
+	
+	\item How to exploit redundancy in communication paths?
+	\item Answer: multicast trees
+	
+\end{itemize}
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\includegraphics[width=\textwidth]{server_replica}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\begin{frame}{Reliable Group Communication}
+\begin{columns}
+\begin{column}{.5\textwidth}
+
+\begin{itemize}
+	\item Why not just use TCP?
+	\begin{itemize}
+		\item Consider 100 machines each running 10 processes
+		\item 1000+ TCP connections at each machine
+		\item 1 million+ total!
+		\alert{\item Not scalable!}
+		\item Relies on timeouts
+		\item Ordering harder
+		\item Similar problems with other client-server connection-oriented protocols
+	\end{itemize}
+	
+	\item How to exploit redundancy in communication paths?
+	\item Answer: multicast trees
+	
+\end{itemize}
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\includegraphics[width=\textwidth]{server_replica}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\begin{frame}{Reliable Group Communication}
+\begin{columns}
+\begin{column}{.5\textwidth}
+
+\begin{itemize}
+	\item Why not just use TCP?
+	\begin{itemize}
+		\item Consider 100 machines each running 10 processes
+		\item 1000+ TCP connections at each machine
+		\item 1 million+ total!
+		\alert{\item Not scalable!}
+		\item Relies on timeouts
+		\item Ordering harder
+		\item Similar problems with other client-server connection-oriented protocols
+	\end{itemize}
+	
+	\item How to exploit redundancy in communication paths?
+	\item Answer: multicast trees
+	
+\end{itemize}
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\includegraphics[width=\textwidth]{server_replica}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\begin{frame}{Reliable Group Communication}
+\begin{columns}
+\begin{column}{.5\textwidth}
+
+\begin{itemize}
+	\item Why not just use TCP?
+	\begin{itemize}
+		\item Consider 100 machines each running 10 processes
+		\item 1000+ TCP connections at each machine
+		\item 1 million+ total!
+		\alert{\item Not scalable!}
+		\item Relies on timeouts
+		\item Ordering harder
+		\item Similar problems with other client-server connection-oriented protocols
+	\end{itemize}
+	
+	\item How to exploit redundancy in communication paths?
+	\item Answer: multicast trees
+	
+\end{itemize}
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\includegraphics[width=\textwidth]{server_replica}
+\end{column}
+
+\end{columns}
+\end{frame}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 %
