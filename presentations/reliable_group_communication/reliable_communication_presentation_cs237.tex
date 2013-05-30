@@ -55,7 +55,7 @@
 \end{column}
 	
 \begin{column}{.5\textwidth}
-\includegraphics[width=\textwidth]{message_ordering}
+\includegraphics[width=\textwidth]{message_ordering_types}
 \end{column}
 
 \end{columns}
@@ -156,156 +156,202 @@
 % membership to groups, notification of who received message
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\begin{frame}{Reliable Group Communication}
+
+\begin{frame}{Spread Toolkit}
 \begin{columns}
 \begin{column}{.5\textwidth}
 
 \begin{itemize}
-	\item Why not just use TCP?
+	\item Open-source tools for group communication
+	\item \url{www.spread.org}
+	\item Hierarchical
 	\begin{itemize}
-		\item Consider 100 machines each running 10 processes
-		\item 1000+ TCP connections at each machine
-		\item 1 million+ total!
-		\alert{\item Not scalable!}
-		\item Relies on timeouts
-		\item Ordering harder
-		\item Similar problems with other client-server connection-oriented protocols
+		\item Wide area: hop protocol
+		\item Local area: ring protocol
 	\end{itemize}
-	
-	\item How to exploit redundancy in communication paths?
-	\item Answer: multicast trees
+	\item Scales: tens of sites, tens of machines in each
+	\item Bindings in many languages / platforms
+	\begin{itemize}
+		\item C/C++
+		\item Java
+		\item Python, Perl, Ruby
+		\item Windows (98 - XP)
+		\item BSD / Linux / Solaris / Irix
+		\item Mac OS X
+	\end{itemize}
 	
 \end{itemize}
 \end{column}
 	
 \begin{column}{.5\textwidth}
-\includegraphics[width=\textwidth]{server_replica}
+\includegraphics[width=\textwidth]{spread_wan}
 \end{column}
 
 \end{columns}
 \end{frame}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\begin{frame}{Reliable Group Communication}
+
+\begin{frame}{Spread's Daemon-client Model}
 \begin{columns}
-\begin{column}{.5\textwidth}
+\begin{column}{\textwidth}
 
 \begin{itemize}
-	\item Why not just use TCP?
+\item Daemons provide messaging services
+\item User applications contact closest daemon for group communication
+\item Minimizes expensive membership changes
+\item Can tune number of daemons
+\item Wide area dissemination
 	\begin{itemize}
-		\item Consider 100 machines each running 10 processes
-		\item 1000+ TCP connections at each machine
-		\item 1 million+ total!
-		\alert{\item Not scalable!}
-		\item Relies on timeouts
-		\item Ordering harder
-		\item Similar problems with other client-server connection-oriented protocols
+\item Each site has one representative daemon for wide area dissemination
+\item Routing trees rooted at each site
+\item Each site = node in tree
+\item Supports pruning, fast-retransmit, non-blocking send
+	\end{itemize}
+\item Daemons could even be run on routers
+	\begin{itemize}
+		\item More for better performance
+		\item Fewer for less costly recovery
 	\end{itemize}
 	
-	\item How to exploit redundancy in communication paths?
-	\item Answer: multicast trees
-	
 \end{itemize}
-\end{column}
-	
-\begin{column}{.5\textwidth}
-\includegraphics[width=\textwidth]{server_replica}
 \end{column}
 
 \end{columns}
 \end{frame}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\begin{frame}{Reliable Group Communication}
+
+\begin{frame}{Spread Architecture}
 \begin{columns}
 \begin{column}{.5\textwidth}
 
 \begin{itemize}
-	\item Why not just use TCP?
+\item Several queues between session and transport
+\item Can support priorities
+\item Network module info $\rightarrow$ Routing module $\rightarrow$ \\ Routing trees
+\item Can have multiple hops, only one ring
+\item Extended virtual synchrony
 	\begin{itemize}
-		\item Consider 100 machines each running 10 processes
-		\item 1000+ TCP connections at each machine
-		\item 1 million+ total!
-		\alert{\item Not scalable!}
-		\item Relies on timeouts
-		\item Ordering harder
-		\item Similar problems with other client-server connection-oriented protocols
+		\item Handle network partitions
+		\item Handle re-merges
+		\item Joins
+		\item Leaves
 	\end{itemize}
-	
-	\item How to exploit redundancy in communication paths?
-	\item Answer: multicast trees
-	
+
 \end{itemize}
 \end{column}
 	
 \begin{column}{.5\textwidth}
-\includegraphics[width=\textwidth]{server_replica}
+\includegraphics[width=\textwidth]{spread_architecture}
 \end{column}
 
 \end{columns}
 \end{frame}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\begin{frame}{Reliable Group Communication}
+
+\begin{frame}{Spread's Hop Protocol}
 \begin{columns}
 \begin{column}{.5\textwidth}
 
 \begin{itemize}
-	\item Why not just use TCP?
+	\item Uses UDP/IP
+	\item Handle losses hop-by-hop, not end-to-end
+	\item Forward immediately, ignoring order
+	\item NACKs for retransmit
 	\begin{itemize}
-		\item Consider 100 machines each running 10 processes
-		\item 1000+ TCP connections at each machine
-		\item 1 million+ total!
-		\alert{\item Not scalable!}
-		\item Relies on timeouts
-		\item Ordering harder
-		\item Similar problems with other client-server connection-oriented protocols
+		\item NACK all outstanding packets
+		\item Wait timeout before requesting retransmit
+		\item Declares sender dead if retries $>$ threshold
+		\item Latency bound
 	\end{itemize}
 	
-	\item How to exploit redundancy in communication paths?
-	\item Answer: multicast trees
-	
+	\item cumulative ACKs
+	\item Sliding window
+	\item Token/leaky bucket for flow control
+
 \end{itemize}
 \end{column}
 	
 \begin{column}{.5\textwidth}
-\includegraphics[width=\textwidth]{server_replica}
+\includegraphics[width=\textwidth]{spread_hop_protocol}
 \end{column}
 
 \end{columns}
 \end{frame}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\begin{frame}{Reliable Group Communication}
+
+\begin{frame}{Spread's Ring Protocol}
 \begin{columns}
 \begin{column}{.5\textwidth}
 
 \begin{itemize}
-	\item Why not just use TCP?
+	\item Multiple daemons in one site
+	\item Local ordering, reliable dissemination
+	\item Receives a token
 	\begin{itemize}
-		\item Consider 100 machines each running 10 processes
-		\item 1000+ TCP connections at each machine
-		\item 1 million+ total!
-		\alert{\item Not scalable!}
-		\item Relies on timeouts
-		\item Ordering harder
-		\item Similar problems with other client-server connection-oriented protocols
+		\item Retransmits requested by previous holder
+		\item Receive messages
+		\item Send packets
+		\item Update and forward token
 	\end{itemize}
-	
-	\item How to exploit redundancy in communication paths?
-	\item Answer: multicast trees
-	
 \end{itemize}
 \end{column}
 	
 \begin{column}{.5\textwidth}
-\includegraphics[width=\textwidth]{server_replica}
+\includegraphics[width=\textwidth]{token_ring}
 \end{column}
 
 \end{columns}
 \end{frame}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{frame}{Spread's Message Ordering}
+\begin{columns}
+\begin{column}{.5\textwidth}
+
+\begin{itemize}
+	\item Based on Lamport Time Stamp (logical clock)
+	\item Sequence numbers
+	\item Agreed
+	\begin{itemize}
+		\item FIFO and Causal
+		\item Consistent across groups
+	\end{itemize}
+	\item Safe
+	\begin{itemize}
+		\item Consistent with agreed
+		\item Each site generates All-Received-Upto values
+		\item Disseminate across sites
+		\item Global All-Received-Upto values
+	\end{itemize}
+\end{itemize}
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\includegraphics[width=\textwidth]{message_ordering}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{frame}{References}
+
+\begin{itemize}
+	\item Andreas Larsson. \emph{Lab 2 Group Communication}. \url{http://www.cse.chalmers.se/edu/year/2011/course/TDA297/slides/presentation_lab2.ppt}
+	\item ccsejc. \emph{Distributed Systems}. \url{http://www.scribd.com/doc/23723915/28/Reliable-Communication}
+	\item The Spread Toolkit. \url{http://www.spread.org/SpreadPlatforms.html}
+	\item Prashant Shenoy. \emph{CS 677 Remote Procedure Calls}. \url{http://lass.cs.umass.edu/~shenoy/courses/677/lectures.html}
+	\item Yair Amir and Jonathan Stanton. \emph{The Spread Wide Area Group Communication System}
+\end{itemize}
+
+\end{frame}
+
 %
 %\part{rest}
 %
