@@ -45,6 +45,41 @@
 \includegraphics[height=\textwidth,angle=-90]{angular_path}
 \end{column}
 
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{frame}{Orthogonal Distant Path Heuristic}
+\begin{columns}
+\begin{column}{.5\textwidth}
+
+% re-works this itemize into a different background slide.
+% put algorithm here instead, maybe an observation/intuition
+
+\begin{itemize}
+	\item Failure along path to server or in local area
+	\item Choose node outside local	region to avoid overlapping	paths
+	\item Choose path avoiding as much of the direct path as possible
+	\item Overlay node may use similar route to sensor
+\end{itemize}
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\includegraphics[height=\textwidth,angle=-90]{angular_path}
+\end{column}
+H1 routes around failed R1
+using H3 as an overlay
+ After a failure, H1 tries
+alternates until success or max
+# retries reached
+ One overlay hop usually
+enough [Han2005]
+– For multi-hop, search
+space = O(n!/(n-k)!),
+where n = # overlay
+nodes and k = # hops
+
+
+
 \end{columns}
 \end{frame}
 
