@@ -1,0 +1,58 @@
+%\documentclass[twocolumn,10pt]{IEEEtran}
+\documentclass[draftcls,12pt]{IEEEtran}
+%\usepackage[top=0.75in,bottom=1in,left=0.625in,right=0.625in]{geometry}
+%\columnsep 0.25in
+\usepackage{amsmath}
+%\usepackage[dvips]{graphics}
+%\usepackage{epsfig}
+%\usepackage{subfigure}
+%\usepackage{algorithm}
+\usepackage[ruled]{algorithm2e}
+\usepackage{algorithmic}
+%\usepackage{multirow}
+%\usepackage{program}
+
+\usepackage{latexsym}
+\usepackage{amsmath}
+%\usepackage[dvips]{graphics,color}
+\usepackage[pdftex]{graphicx}
+%\usepackage{epsfig}
+
+\newcommand{\comment}[1]{}
+
+\begin{document}
+\title{ \Large\bfseries
+Heuristics
+}
+
+\maketitle
+%\thispagestyle{empty}
+%\pagestyle{empty}
+
+\begin{algorithm}
+\DontPrintSemicolon
+\SetKwBlock{Begin}{begin}{end}
+\SetAlgoLined
+\SetAlgoLongEnd
+\scriptsize
+%\SetAlgoSkip{bigskip}
+%\SetAlgoInsideSkip{medskip}
+%$/*Initialization*/$\;
+\Begin{
+\tcc*[l]{For angle-dependent path heuristic algorithm.}
+\lIf{$angle = \pi$ {\bf or} $angle = 0$} {$likelihood = 0$\;}
+\lElseIf{$angle < \pi$} {$likelihood = \cos (angle - 0.25 \cdot \pi)$\;}
+\lElseIf{$angle > \pi$} {$likelihood = \cos (2 \cdot ((2 \cdot \pi - angle) - 0.25 \cdot \pi)/3)$\;}
+
+\tcc*[l]{For distance-dependent path heuristic algorithm.}
+\lIf{$distance < minDistance$} {$likelihood = 0$\;}
+\lElseIf{$minDistance < distance < mDistance$} {$likelihood = 0.4 \cdot (distance - minDistance)$\;}
+\lElseIf{$mDistance < distance < maxDistance$} {$llikelihood = (distance - minDistance)$\;}
+\lElseIf{$distance > maxDistance$} {$likelihood = 0.8 \cdot (distance - minDistance)$\;}
+}
+\caption{Heuristic Algorithms}
+\small
+\end{algorithm}
+
+\end{document}
+
