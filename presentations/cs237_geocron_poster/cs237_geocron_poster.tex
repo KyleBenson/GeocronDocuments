@@ -50,9 +50,87 @@
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\begin{frame}{Angle-Dependent Path Heuristic}
+\begin{columns}
 
+\begin{column}{.5\textwidth}
+\begin{algorithm}
+\DontPrintSemicolon
+\SetKwBlock{Begin}{begin}{end}
+\SetAlgoLined
+\SetAlgoLongEnd
+\scriptsize
+\Begin{
+\tcc*[l]{For angle-dependent path heuristic algorithm.}
+\lIf{$angle = \pi$ {\bf or} $angle = 0$} {$likelihood = 0$\;}
+\lElseIf{$angle < \pi$} {$likelihood = \cos (angle - 0.25 \cdot \pi)$\;}
+\lElseIf{$angle > \pi$} {$likelihood = \cos (2 \cdot ((2 \cdot \pi - angle) - 0.25 \cdot \pi)/3)$\;}
+}
+\caption{Angle-Dependent Path Heuristic Algorithms}
+\small
+\end{algorithm}
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\includegraphics[height=\textwidth,angle=-90]{angular_path}
+\end{column}
+
+\end{columns}
+\end{frame}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{frame}{Distance-Dependent Path Heuristic}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\begin{algorithm}
+\DontPrintSemicolon
+\SetKwBlock{Begin}{begin}{end}
+\SetAlgoLined
+\SetAlgoLongEnd
+\scriptsize
+%\SetAlgoSkip{bigskip}
+%\SetAlgoInsideSkip{medskip}
+%$/*Initialization*/$\;
+\Begin{
+\tcc*[l]{For distance-dependent path heuristic algorithm.}
+\lIf{$distance < minDistance$} {$likelihood = 0$\;}
+\lElseIf{$minDistance < distance < mDistance$} {$likelihood = 0.4 \cdot (distance - minDistance)$\;}
+\lElseIf{$mDistance < distance < maxDistance$} {$llikelihood = (distance - minDistance)$\;}
+\lElseIf{$distance > maxDistance$} {$likelihood = 0.8 \cdot (distance - minDistance)$\;}
+}
+\caption{Distance-Dependent Path Heuristic Algorithms}
+\small
+\end{algorithm}
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\includegraphics[height=\textwidth,angle=-90]{angular_path}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{frame}{Furthest Distant Path Heuristic}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\begin{itemize}
+	\item Failure along path to server or in local area
+	\item Choose node that has the largest distance from the source
+	\item Choose path avoiding as much of the direct path as possible
+	\item Overlay node may use similar route to sensor
+\end{itemize}
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\includegraphics[height=\textwidth,angle=-90]{angular_path}
+\end{column}
+
+\end{columns}
+\end{frame}
+
 
 %
 %\part{rest}
