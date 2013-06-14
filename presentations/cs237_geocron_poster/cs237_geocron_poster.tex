@@ -126,7 +126,7 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \scriptsize
 \Begin{
 %\tcc*[l]{Discover any node that has not been discoverd in this region}
-\lIf{$RegionsAttempCount (RegionCount)$} {$likelihood = 0$\;}
+\lIf{$peer.region \in regionsAttempted$} {$likelihood = 0$\;}
 \lElse {$likelihood = 1.0$\;}
 }
 \caption{}
@@ -195,7 +195,7 @@ $angle = Angle(overlay,server)$\;
 %\SetAlgoInsideSkip{medskip}
 %$/*Initialization*/$\;
 \Begin{
-\tcc*[l]{minDist = certain reasonably small number}
+\tcc*[l]{minDist = some reasonably small number}
 $idealDist = 0.5 \cdot dist(sensor,server)$
 $dist = dist(sensor,overlay)$
 \lIf{$dist <= minDist$} {$likelihood = 0$\;}
@@ -257,9 +257,9 @@ $dist(v_0, v_2) = geo(v_0, v_2)$
 \SetAlgoLongEnd
 \scriptsize
 \Begin{
-\tcc*[l]{maxDistance = certainly reasonably large number}
-\lIf{$dist(a,b) > maxDistance$} {$likelihood = 0$\;}
-\lElse {$likelihood = (maxDistance - dist(a,b)) / maxDistance $\;}
+\tcc*[l]{minDistance = some constant small number}
+\lIf{$dist(a,b) < minDistance$} {$likelihood = 0$\;}
+\lElse {$likelihood = (dist(a,b) - minDistance) / dist(a,b) $\;}
 }
 \small
 \end{algorithm}
@@ -280,9 +280,9 @@ $dist(v_0, v_2) = geo(v_0, v_2)$
 \SetAlgoLongEnd
 \scriptsize
 \Begin{
-\tcc*[l]{minDistance = certain reasonably small number}
-\lIf{$dist(a,b) < minDistance$} {$likelihood = 0$\;}
-\lElse {$likelihood = (dist(a,b) - minDistance) / dist(a,b) $\;}
+\tcc*[l]{maxDistance = some constant large number}
+\lIf{$dist(a,b) > maxDistance$} {$likelihood = 0$\;}
+\lElse {$likelihood = (maxDistance - dist(a,b)) / maxDistance $\;}
 }
 \caption{}
 \small
