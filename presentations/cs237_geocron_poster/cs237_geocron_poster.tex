@@ -92,7 +92,7 @@
 \SetAlgoLongEnd
 \scriptsize
 \Begin{
-\tcc*[l]{Sensor , overlay and server node are a, c, b respectively}
+\tcc*[l]{Sensor, overlay and server node are a, c, b respectively}
 $idealDist = |0.5 \cdot dist(a,b)|$\;
 $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \lIf{$angA > \frac{\pi}{2}$ {\bf or} $angA + angC < \frac{\pi}{2}$ {\bf or} $perpDist > dist(a,b)$} {$likelihood = 0$\;}
@@ -161,7 +161,7 @@ $angle = Angle(overlay,server)$\;
 \lIf{$angle = \pi$ {\bf or} $angle = 0$} {$initLikelihood = 0$\;}
 \lElseIf{$angle < \pi$} {$initLikelihood = \cos (angle - \frac{\pi}{4})$\;}
 \lElseIf{$angle > \pi$} {$initLikelihood = \cos (2 \cdot ((2\pi - angle) - \frac{\pi}{4})/3)$\;}
-\lFor {$(path = pathsAttempted)$} {$thisLikelihood = |\frac{\sin (angle)}{2}|$\;} {$newLikelihood *= thisLikelihood$\;}
+\lForEach {$path \in pathsAttempted$} {$thisLikelihood = |\frac{\sin (angle)}{2}|$\;} {$newLikelihood *= thisLikelihood$\;}
 %\tcc*[l]{aggregate likelihoods to make punishments on wrong choices}
 }
 \caption{}
