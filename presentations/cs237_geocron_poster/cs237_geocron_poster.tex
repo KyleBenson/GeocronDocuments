@@ -92,7 +92,7 @@
 \SetAlgoLongEnd
 \scriptsize
 \Begin{
-\tcc*[l]{Monitor both the distance and the angle of the overlay node.}
+%\tcc*[l]{Monitor both the distance and the angle of the overlay node.}
 $idealDist = |0.5 \cdot dist(a,b)|$\;
 $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \lIf{$angA > \frac{\pi}{2}$ {\bf or} $angA + angC < \frac{\pi}{2}$ {\bf or} $perpDist > dist(a,b)$} {$likelihood = 0$\;}
@@ -125,7 +125,7 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \SetAlgoLongEnd
 \scriptsize
 \Begin{
-\tcc*[l]{Discover any node that has not been discoverd in this region}
+%\tcc*[l]{Discover any node that has not been discoverd in this region}
 \lIf{$RegionsAttempCount (region_count)$} {$likelihood = 0$\;}
 \lElse {$likelihood = 1.0$\;}
 }
@@ -157,7 +157,7 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \SetAlgoLongEnd
 \scriptsize
 \Begin{
-\tcc*[l]{The angle could be either acute or obtuse.}
+%\tcc*[l]{The angle could be either acute or obtuse.}
 \lIf{$angle = \pi$ {\bf or} $angle = 0$} {$likelihood = 0$\;}
 \lElseIf{$angle < \pi$} {$likelihood = \cos (angle - \frac{\pi}{4})$\;}
 \lElseIf{$angle > \pi$} {$likelihood = \cos (2 \cdot ((2\pi - angle) - \frac{\pi}{4})/3)$\;}
@@ -194,7 +194,7 @@ likelihood *= pastLikelihood;
 %\SetAlgoInsideSkip{medskip}
 %$/*Initialization*/$\;
 \Begin{
-\tcc*[l]{Define idealDist as half of the distance from the source to the destination, dist as the distance from the source to the candidate node, minDist as a lower boundary to avoid candidate node being too close to the source.}
+%\tcc*[l]{Define idealDist as half of the distance from the source to the destination, dist as the distance from the source to the candidate node, minDist as a lower boundary to avoid candidate node being too close to the source.}
 \lIf{$dist <= minDiste$} {$likelihood = 0$\;}
 \lElseIf{$minDist < dist < idealDist$} {$likelihood = dist^{2} / idealDist^{2}$\;}
 \lElseIf{$dist >= idealDist$} {$likelihood = idealDist / dist $\;}
@@ -237,9 +237,8 @@ likelihood *= pastLikelihood;
 	
 \begin{column}{.5\textwidth}
 \begin{figure}
-\includegraphics[height=.5\textwidth,angle=-90]{path_similarity_one_destination}
-\caption{When considering one server, $geo\_similarity(v_0, v_1, v_2, v_3) = dist(v_0, v_2) = geo(v_0, v_2)$  Thus, this heuristic considers overlay peers located further away to be more likely candidates.}
-
+\includegraphics[height=\textwidth,angle=-90]{angular_path}
+\caption{This heuristic selects overlay node that has the closest distance to the source.}
 \end{figure}
 \end{column}
 
@@ -269,8 +268,8 @@ likelihood *= pastLikelihood;
 	
 \begin{column}{.5\textwidth}
 \begin{figure}
-\includegraphics[height=\textwidth,angle=-90]{nearest_neighbor}
-\caption{The intuition of this heuristic is to contact nearby overlay nodes to help assess what paths are available as distant nodes provide many more options.  We found, however, that this approach does not work well in practice due to the path similarity inherent with nearby nodes.}
+\includegraphics[height=\textwidth,angle=-90]{angular_path}
+\caption{This heuristic selects overlay node that has the furthest distance to the source.}
 \end{figure}
 \end{column}
 
