@@ -290,7 +290,7 @@ $dist(v_0, v_2) = geo(v_0, v_2)$
 \begin{column}{.5\textwidth}
 \begin{figure}
 \includegraphics[height=\textwidth,angle=-90]{nearest_neighbor}
-\caption{The intuition of this heuristic is to contact nearby overlay nodes that have found a path out of the local region.  We found, however, that this approach does not work well in practice, likely due to the path similarity inherent with nearby nodes.}
+\caption{The intuition of this heuristic is to contact nearby overlay nodes that have found a path out of the local region.  We found, however, that this approach does not always work well in practice, likely due to the path similarity inherent with nearby nodes.}
 \end{figure}
 \end{column}
 
@@ -342,7 +342,7 @@ $dist(v_0, v_2) = geo(v_0, v_2)$
 	\end{itemize}
 	\item Nodes retry every $timeout$ seconds (up to 20 times)
 	\item $timeout = 500ms$: East $\rightarrow$ West RTT $\approx$200-300ms
-	\item Nodes/links in disaster region fail uniformly with probability $p = 0.1, 0.2, … 0.5$
+	\item Nodes/links in disaster region fail uniformly with probability $p = 0.1, 0.2, 0.3, 0.4, 0.5$
 	\item All overlay nodes in region (one incident link) report to server during disaster
 	\item Server chosen randomly from 10 highest-degree nodes outside disaster
 	\item Each combination of parameters repeated 100 times with different RNG seeds
