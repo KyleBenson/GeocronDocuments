@@ -92,7 +92,7 @@
 \SetAlgoLongEnd
 \scriptsize
 \Begin{
-\tcc*[l]{Sensor , overlay and server node are a , b, c respectively}
+\tcc*[l]{Sensor , overlay and server node are a, c, b respectively}
 $idealDist = |0.5 \cdot dist(a,b)|$\;
 $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \lIf{$angA > \frac{\pi}{2}$ {\bf or} $angA + angC < \frac{\pi}{2}$ {\bf or} $perpDist > dist(a,b)$} {$likelihood = 0$\;}
@@ -158,11 +158,10 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \Begin{
 %\tcc*[l]{The angle could be either acute or obtuse.}
 $angle = Angle(overlay,server)$\;
-\lFor {$(path = pathsAttempted)$\;}
-\lIf{$angle = \pi$ {\bf or} $angle = 0$} {$likelihood = 0$\;}
-\lElseIf{$angle < \pi$} {$likelihood = \cos (angle - \frac{\pi}{4})$\;}
-\lElseIf{$angle > \pi$} {$likelihood = \cos (2 \cdot ((2\pi - angle) - \frac{\pi}{4})/3)$\;}
-$likelihood = likelihood \cdot pastLikelihood$\;
+\lIf{$angle = \pi$ {\bf or} $angle = 0$} {$initLikelihood = 0$\;}
+\lElseIf{$angle < \pi$} {$initLikelihood = \cos (angle - \frac{\pi}{4})$\;}
+\lElseIf{$angle > \pi$} {$initLikelihood = \cos (2 \cdot ((2\pi - angle) - \frac{\pi}{4})/3)$\;}
+\lFor {$(path = pathsAttempted)$} {$thisLikelihood = |\frac{\sin (angle)}{2}|$\;} {$newLikelihood *= thisLikelihood$\;}
 %\tcc*[l]{aggregate likelihoods to make punishments on wrong choices}
 }
 \caption{}
