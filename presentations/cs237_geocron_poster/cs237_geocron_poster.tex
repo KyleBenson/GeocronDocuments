@@ -5,7 +5,7 @@
 
 % declare the path(s) where your graphic files are
 % ../.. is the GeocronDocuments directory
-\graphicspath{{../../images/diagrams/}{../../images/external/location_routing/}}
+\graphicspath{{../../images/diagrams/}}
 \DeclareGraphicsExtensions{.pdf,.png}
 
 \begin{document}
@@ -28,18 +28,30 @@
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-% \begin{frame}{Challenges}
-% \begin{columns}
-% 
-% \begin{itemize}
-%   \item Geographically-correlated network failures
-%   \item Improve data delivery ratio/speed
-%   \item Observations
-%   \item Claim: Resilient Overlay Networks can help establish more reliable connections between end-hosts with limited topology knowledge
-% \end{itemize}
-% 
-% \end{columns}
-% \end{frame}
+\begin{frame}{Challenges}
+\begin{columns}
+\begin{column}{\textwidth}
+\begin{itemize}
+	\item Geographically-correlated network failures
+	\item Improve data delivery ratio/speed
+	\item Observations
+        \begin{itemize}
+        	\item No control over routing infrastructure, only end hosts
+		\item May not have reliable knowledge of underlying network topology
+                \begin{itemize}
+        		\item Traceroutes may follow different paths
+			\item Network administrator may obfuscate links/routers
+                \end{itemize}
+		\item But can gather location information from host-sensors
+                \begin{itemize}
+        		\item GPS, IP address, user-specified
+                \end{itemize}
+        \end{itemize}
+	\item Claim: Resilient Overlay Networks can help establish more reliable connections between end-hosts with limited topology knowledge
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -80,9 +92,9 @@
 \scriptsize
 \Begin{
 \tcc*[l]{Monitor both the distance and the angle of the overlay node.}
-$idealDist = |0.5 \cdot abDist|$\;
-$perpDist = |\sin (angA) \cdot acDist|$\;
-\lIf{$angA > \frac{\pi}{2}$ {\bf or} $angA + angC < \frac{\pi}{2}$ {\bf or} $perpDist > abDist$} {$likelihood = 0$\;}
+$idealDist = |0.5 \cdot dist(a,b)|$\;
+$perpDist = |\sin (angA) \cdot dist(a,c)|$\;
+\lIf{$angA > \frac{\pi}{2}$ {\bf or} $angA + angC < \frac{\pi}{2}$ {\bf or} $perpDist > dist(a,b)$} {$likelihood = 0$\;}
 \lElse {$likelihood = 0.5 \cdot (( 1.0 - (||perpDist|-|idealDist|| / idealDist)^{2}) + ( 1.0 - (|\frac{\pi}{2} - angC| / \frac{\pi}{2})^{2}))$\;}
 }
 \caption{}
@@ -105,12 +117,20 @@ $perpDist = |\sin (angA) \cdot acDist|$\;
 \begin{frame}{New Region Heuristic}
 \begin{columns}
 \begin{column}{.5\textwidth}
-\begin{itemize}
-	\item Failure along path to server or in local area
-	\item Discover any node within the region that has not be discovered
-	\item Update region information every time a new region node is discovered
-	\item Overlay node may use similar route to sensor
-\end{itemize}
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\SetKwBlock{Begin}{begin}{end}
+\SetAlgoLined
+\SetAlgoLongEnd
+\scriptsize
+\Begin{
+\tcc*[l]{Discover any node that has not been discoverd in this region}
+\lIf{$RegionsAttempCount (region_count)$} {$likelihood = 0$\;}
+\lElse {$likelihood = 1.0$\;}
+}
+\caption{}
+\small
+\end{algorithm}
 \end{column}
 	
 \begin{column}{.5\textwidth}
@@ -185,7 +205,7 @@ likelihood *= pastLikelihood;
 	
 \begin{column}{.5\textwidth}
 \begin{figure}
-\includegraphics[height=\textwidth,angle=-90]{ideal_distant_path}
+\includegraphics[height=\textwidth,angle=-90]{new_angle}
 \caption{This heuristic attempts paths that use overlay nodes at an ideal distance from the sensor.  This ideal distance is chosen as a radius that reaches half-way to the server.}
 \end{figure}
 \end{column}
@@ -195,16 +215,25 @@ likelihood *= pastLikelihood;
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\begin{frame}{Furthest First Path Heuristic}
+\begin{frame}{Closest First Path Heuristic}
 \begin{columns}
-	
 \begin{column}{.5\textwidth}
-\begin{figure}
-\includegraphics[height=.5\textwidth,angle=-90]{path_similarity_two_destinations}
-\caption{Definition of path similarity presented in W. Sun, ``A Method for Overlay Network Latency Estimation from Previous Observation'', ICN-2013. $geo_similarity(v_0, v_1, v_2, v_3) = \min[dist(v_0, v_2) + dist(v_1, v_3), dist(v_0, v_3) + dist(v_1, v_2)]$}
-\end{figure}
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\SetKwBlock{Begin}{begin}{end}
+\SetAlgoLined
+\SetAlgoLongEnd
+\scriptsize
+\Begin{
+\tcc*[l]{Set maxDistance to a considerably large number}
+\lIf{$dist(a,b) > maxDistance$} {$likelihood = 0$\;}
+\lElse {$likelihood = (maxDistance - dist(a,b)) / maxDistance $\;}
+}
+\caption{}
+\small
+\end{algorithm}
 \end{column}
-
+	
 \begin{column}{.5\textwidth}
 \begin{figure}
 \includegraphics[height=.5\textwidth,angle=-90]{path_similarity_one_destination}
@@ -217,15 +246,23 @@ likelihood *= pastLikelihood;
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\begin{frame}{Closest First Path Heuristic}
+\begin{frame}{Furthest First Path Heuristic}
 \begin{columns}
 \begin{column}{.5\textwidth}
-\begin{itemize}
-	\item Failure along path to server or in local area
-	\item Choose node that has the largest distance from the source
-	\item Choose path avoiding as much of the direct path as possible
-	\item Overlay node may use similar route to sensor
-\end{itemize}
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\SetKwBlock{Begin}{begin}{end}
+\SetAlgoLined
+\SetAlgoLongEnd
+\scriptsize
+\Begin{
+\tcc*[l]{Set minDistance to a considerably small number}
+\lIf{$dist(a,b) < minDistance$} {$likelihood = 0$\;}
+\lElse {$likelihood = (dist(a,b) - minDistance) / dist(a,b) $\;}
+}
+\caption{}
+\small
+\end{algorithm}
 \end{column}
 	
 \begin{column}{.5\textwidth}
@@ -238,6 +275,38 @@ likelihood *= pastLikelihood;
 \end{columns}
 \end{frame}
 
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{frame}{Regions/AS'es Evaluated}
+\begin{columns}
+\begin{column}{\textwidth}
+\begin{table}
+\centering
+\label{TABLE}
+\caption{}
+\begin{tabular}{|c|c|c|c|c|l|l|l|l|l|l|l|l|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+   &  &  &  &  &  &  &  \\
+  \hline
+  Disaster Region         &  &  &  &  &  &  &  \\
+  \hline
+  Total Nodes             &  &  &  &  &  &  &  \\
+  \hline
+  Total Overlay Nodes     &  &  &  &  &  &  &  \\
+  \hline
+  Nodes in Region         &  &  &  &  &  &  &  \\
+  \hline
+  Overlay Nodes in Region &  &  &  &  &  &  &  \\
+  \hline
+\end{tabular}
+\end{table}
+\end{column}
+\end{columns}
+\end{frame}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 %
 %\part{rest}
