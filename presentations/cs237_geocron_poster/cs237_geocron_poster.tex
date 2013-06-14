@@ -9,6 +9,7 @@
 
 % declare the path(s) where your graphic files are
 % ../.. is the GeocronDocuments directory
+
 \graphicspath{{../../images/diagrams/}{../../images/external/location_routing/}}
 \DeclareGraphicsExtensions{.pdf,.png}
 
@@ -91,7 +92,7 @@
 \SetAlgoLongEnd
 \scriptsize
 \Begin{
-\tcc*[l]{Monitor both the distance and the angle of the overlay node.}
+%\tcc*[l]{Monitor both the distance and the angle of the overlay node.}
 $idealDist = |0.5 \cdot dist(a,b)|$\;
 $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \lIf{$angA > \frac{\pi}{2}$ {\bf or} $angA + angC < \frac{\pi}{2}$ {\bf or} $perpDist > dist(a,b)$} {$likelihood = 0$\;}
@@ -124,8 +125,8 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \SetAlgoLongEnd
 \scriptsize
 \Begin{
-\tcc*[l]{Discover any node that has not been discoverd in this region}
-\lIf{$RegionsAttempCount (region_count)$} {$likelihood = 0$\;}
+%\tcc*[l]{Discover any node that has not been discoverd in this region}
+\lIf{$RegionsAttempCount (region\_count)$} {$likelihood = 0$\;}
 \lElse {$likelihood = 1.0$\;}
 }
 \caption{}
@@ -155,11 +156,11 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \SetAlgoLongEnd
 \scriptsize
 \Begin{
-\tcc*[l]{The angle could be either acute or obtuse.}
+%\tcc*[l]{The angle could be either acute or obtuse.}
 \lIf{$angle = \pi$ {\bf or} $angle = 0$} {$likelihood = 0$\;}
 \lElseIf{$angle < \pi$} {$likelihood = \cos (angle - \frac{\pi}{4})$\;}
 \lElseIf{$angle > \pi$} {$likelihood = \cos (2 \cdot ((2\pi - angle) - \frac{\pi}{4})/3)$\;}
-likelihood *= pastLikelihood; 
+likelihood *= pastLikelihood;
 \tcc*[l]{aggregate likelihoods to make punishments on wrong choices}
 }
 \caption{}
@@ -193,8 +194,8 @@ likelihood *= pastLikelihood;
 %\SetAlgoInsideSkip{medskip}
 %$/*Initialization*/$\;
 \Begin{
-\tcc*[l]{Define idealDist as half of the distance from the source to the destination, dist as the distance from the source to the candidate node, minDist as a lower boundary to avoid candidate node being too close to the source.}
-\lIf{$dist <= minDiste$} {$likelihood = 0$\;}
+%\tcc*[l]{Define idealDist as half of the distance from the source to the destination, dist as the distance from the source to the candidate node, minDist as a lower boundary to avoid candidate node being too close to the source.}
+\lIf{$dist <= minDist$} {$likelihood = 0$\;}
 \lElseIf{$minDist < dist < idealDist$} {$likelihood = dist^{2} / idealDist^{2}$\;}
 \lElseIf{$dist >= idealDist$} {$likelihood = idealDist / dist $\;}
 }
@@ -259,7 +260,6 @@ $dist(v_0, v_2) = geo(v_0, v_2)$
 }
 \small
 \end{algorithm}
-
 \end{column}
 
 \end{columns}
