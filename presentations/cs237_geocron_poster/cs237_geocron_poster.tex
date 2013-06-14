@@ -92,7 +92,7 @@
 \SetAlgoLongEnd
 \scriptsize
 \Begin{
-%\tcc*[l]{Monitor both the distance and the angle of the overlay node.}
+\tcc*[l]{Sensor , overlay and server node are a , b, c respectively}
 $idealDist = |0.5 \cdot dist(a,b)|$\;
 $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \lIf{$angA > \frac{\pi}{2}$ {\bf or} $angA + angC < \frac{\pi}{2}$ {\bf or} $perpDist > dist(a,b)$} {$likelihood = 0$\;}
@@ -157,7 +157,8 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \scriptsize
 \Begin{
 %\tcc*[l]{The angle could be either acute or obtuse.}
-\lFor {$(itr = pathsAttempted.begin(); itr != pathAttempted.end(); itr ++)$\;}
+$angle = AngleBetween ((sensor,overlay),(sensor,server))$
+\lFor {$(path = pathsAttempted)$\;}
 \lIf{$angle = \pi$ {\bf or} $angle = 0$} {$likelihood = 0$\;}
 \lElseIf{$angle < \pi$} {$likelihood = \cos (angle - \frac{\pi}{4})$\;}
 \lElseIf{$angle > \pi$} {$likelihood = \cos (2 \cdot ((2\pi - angle) - \frac{\pi}{4})/3)$\;}
@@ -196,6 +197,9 @@ $likelihood = likelihood \cdot pastLikelihood$\;
 %$/*Initialization*/$\;
 \Begin{
 %\tcc*[l]{Define idealDist as half of the distance from the source to the destination, dist as the distance from the source to the candidate node, minDist as a lower boundary to avoid candidate node being too close to the source.}
+$idealDist = 0.5 * dist(sensor,server)$
+$minDist = certain reasonably small number$
+$dist = dist(sensor,overlay)$
 \lIf{$dist <= minDist$} {$likelihood = 0$\;}
 \lElseIf{$minDist < dist < idealDist$} {$likelihood = dist^{2} / idealDist^{2}$\;}
 \lElseIf{$dist >= idealDist$} {$likelihood = idealDist / dist $\;}
