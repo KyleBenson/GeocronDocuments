@@ -28,18 +28,18 @@
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\begin{frame}{Challenges}
-\begin{columns}
-
-\begin{itemize}
-	\item Geographically-correlated network failures
-	\item Improve data delivery ratio/speed
-	\item Observations
-	\item Claim: Resilient Overlay Networks can help establish more reliable connections between end-hosts with limited topology knowledge
-\end{itemize}
-
-\end{columns}
-\end{frame}
+% \begin{frame}{Challenges}
+% \begin{columns}
+% 
+% \begin{itemize}
+%   \item Geographically-correlated network failures
+%   \item Improve data delivery ratio/speed
+%   \item Observations
+%   \item Claim: Resilient Overlay Networks can help establish more reliable connections between end-hosts with limited topology knowledge
+% \end{itemize}
+% 
+% \end{columns}
+% \end{frame}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -197,23 +197,17 @@ likelihood *= pastLikelihood;
 
 \begin{frame}{Furthest First Path Heuristic}
 \begin{columns}
-\begin{column}{.5\textwidth}
-\begin{itemize}
-	\item Failure along path to server or in local area
-	\item Choose node that has the largest distance from the source
-	\item Choose path avoiding as much of the direct path as possible
-	\item Overlay node may use similar route to sensor
-\end{itemize}
-\end{column}
 	
 \begin{column}{.5\textwidth}
 \begin{figure}
-\includegraphics[height=\textwidth,angle=-90]{path_similarity_two_destinations}
+\includegraphics[height=.5\textwidth,angle=-90]{path_similarity_two_destinations}
 \caption{Definition of path similarity presented in W. Sun, ``A Method for Overlay Network Latency Estimation from Previous Observation'', ICN-2013. $geo_similarity(v_0, v_1, v_2, v_3) = \min[dist(v_0, v_2) + dist(v_1, v_3), dist(v_0, v_3) + dist(v_1, v_2)]$}
 \end{figure}
+\end{column}
 
+\begin{column}{.5\textwidth}
 \begin{figure}
-\includegraphics[height=\textwidth,angle=-90]{path_similarity_one_destination}
+\includegraphics[height=.5\textwidth,angle=-90]{path_similarity_one_destination}
 \caption{When considering one server, $geo_similarity(v_0, v_1, v_2, v_3) = dist(v_0, v_2) = geo(v_0, v_2)$  Thus, this heuristic considers overlay peers located further away to be more likely candidates.}
 \end{figure}
 \end{column}
