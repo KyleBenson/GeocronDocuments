@@ -1,11 +1,15 @@
 \documentclass[pdftex]{beamer}
 \usepackage[ruled]{algorithm2e}
 \usepackage{algorithmic}
+\usepackage{amsmath}
 %\usetheme{Frankfurt}
+
+% don't want these in a poster!
+\beamertemplatenavigationsymbolsempty
 
 % declare the path(s) where your graphic files are
 % ../.. is the GeocronDocuments directory
-\graphicspath{{../../images/diagrams/}}
+\graphicspath{{../../images/diagrams/}{../../images/external/location_routing/}}
 \DeclareGraphicsExtensions{.pdf,.png}
 
 \begin{document}
@@ -30,26 +34,22 @@
 
 \begin{frame}{Challenges}
 \begin{columns}
-\begin{column}{\textwidth}
+\begin{column}{.5\textwidth}
 \begin{itemize}
-	\item Geographically-correlated network failures
-	\item Improve data delivery ratio/speed
-	\item Observations
-        \begin{itemize}
-        	\item No control over routing infrastructure, only end hosts
-		\item May not have reliable knowledge of underlying network topology
-                \begin{itemize}
-        		\item Traceroutes may follow different paths
-			\item Network administrator may obfuscate links/routers
-                \end{itemize}
-		\item But can gather location information from host-sensors
-                \begin{itemize}
-        		\item GPS, IP address, user-specified
-                \end{itemize}
-        \end{itemize}
-	\item Claim: Resilient Overlay Networks can help establish more reliable connections between end-hosts with limited topology knowledge
+	\item \textbf{Goal:} Improve data delivery ratio/speed during geographically-correlated network failures
+	\item No control over and limited knowledge about routing infrastructure
+	\item But can gather location information
+	\item \textbf{Claim:} Resilient Overlay Networks can help establish more reliable connections between end-hosts with limited topology knowledge
 \end{itemize}
 \end{column}
+
+\begin{column}{.5\textwidth}
+\begin{figure}
+\includegraphics[height=.6\textheight]{overlay_path}
+\caption{H1 routes around failed R1 using H3 as an overlay.}
+\end{figure}
+\end{column}
+
 \end{columns}
 \end{frame}
 
@@ -140,44 +140,8 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \end{figure}
 \end{column}
 
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-
-\begin{frame}{Orthogonal Distant Path Heuristic}
-\begin{columns}
-\begin{column}{.5\textwidth}
-
-% re-works this itemize into a different background slide.
-% put algorithm here instead, maybe an observation/intuition
-
-\begin{itemize}
-	\item Failure along path to server or in local area
-	\item Choose node outside local	region to avoid overlapping	paths
-	\item Choose path avoiding as much of the direct path as possible
-	\item Overlay node may use similar route to sensor
-\end{itemize}
-\end{column}
-	
-\begin{column}{.5\textwidth}
-\includegraphics[height=\textwidth,angle=-90]{angular_path}
-\end{column}
-H1 routes around failed R1
-using H3 as an overlay
- After a failure, H1 tries
-alternates until success or max
-# retries reached
- One overlay hop usually
-enough [Han2005]
-– For multi-hop, search
-space = O(n!/(n-k)!),
-where n = # overlay
-nodes and k = # hops
-
-
-
 \end{columns}
 \end{frame}
-
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \begin{frame}{New Angle Path Heuristic}
@@ -218,6 +182,7 @@ likelihood *= pastLikelihood;
 \begin{frame}{Distance-Dependent Path Heuristic}
 \begin{columns}
 \begin{column}{.5\textwidth}
+
 \begin{algorithm}[H]
 \DontPrintSemicolon
 \SetKwBlock{Begin}{begin}{end}
@@ -250,9 +215,37 @@ likelihood *= pastLikelihood;
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\begin{frame}{Closest First Path Heuristic}
+\begin{frame}{Furthest First Path Heuristic}
 \begin{columns}
 \begin{column}{.5\textwidth}
+\begin{figure}
+\includegraphics[height=.6\textwidth,angle=-90]{path_similarity_two_destinations}
+\caption{Definition of path similarity presented in W. Sun, ``A Method for Overlay Network Latency Estimation from Previous Observation'', ICN-2013.}
+\end{figure}
+
+\Tiny{
+
+$geo\_similarity(v_0, v_1, v_2, v_3) = $\\
+$\min[dist(v_0, v_2) + dist(v_1, v_3), dist(v_0, v_3) + dist(v_1, v_2)]$
+
+}
+
+\vspace{8pt}
+When considering one server,
+\vspace{8pt}
+
+\Tiny{
+$geo\_similarity(v_0, v_1, v_2, v_3) = $\\
+$dist(v_0, v_2) = geo(v_0, v_2)$
+}
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\begin{figure}
+\includegraphics[height=.6\textwidth,angle=-90]{path_similarity_one_destination}
+\caption{Thus, this heuristic considers overlay peers located further away to be more likely candidates.}
+\end{figure}
+
 \begin{algorithm}[H]
 \DontPrintSemicolon
 \SetKwBlock{Begin}{begin}{end}
@@ -264,16 +257,9 @@ likelihood *= pastLikelihood;
 \lIf{$dist(a,b) > maxDistance$} {$likelihood = 0$\;}
 \lElse {$likelihood = (maxDistance - dist(a,b)) / maxDistance $\;}
 }
-\caption{}
 \small
 \end{algorithm}
-\end{column}
-	
-\begin{column}{.5\textwidth}
-\begin{figure}
-\includegraphics[height=.5\textwidth,angle=-90]{path_similarity_one_destination}
-\caption{When considering one server, $geo\_similarity(v_0, v_1, v_2, v_3) = dist(v_0, v_2) = geo(v_0, v_2)$  Thus, this heuristic considers overlay peers located further away to be more likely candidates.}
-\end{figure}
+
 \end{column}
 
 \end{columns}
@@ -281,7 +267,7 @@ likelihood *= pastLikelihood;
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\begin{frame}{Furthest First Path Heuristic}
+\begin{frame}{Closest First Path Heuristic}
 \begin{columns}
 \begin{column}{.5\textwidth}
 \begin{algorithm}[H]
@@ -303,7 +289,7 @@ likelihood *= pastLikelihood;
 \begin{column}{.5\textwidth}
 \begin{figure}
 \includegraphics[height=\textwidth,angle=-90]{nearest_neighbor}
-\caption{The intuition of this heuristic is to contact nearby overlay nodes to help assess what paths are available as distant nodes provide many more options.  We found, however, that this approach does not work well in practice due to the path similarity inherent with nearby nodes.}
+\caption{The intuition of this heuristic is to contact nearby overlay nodes that have found a path out of the local region.  We found, however, that this approach does not work well in practice, likely due to the path similarity inherent with nearby nodes.}
 \end{figure}
 \end{column}
 
@@ -313,32 +299,54 @@ likelihood *= pastLikelihood;
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\begin{frame}{Regions/AS'es Evaluated}
-\begin{columns}
-\begin{column}{\textwidth}
-\begin{table}
-\centering
-\label{TABLE}
-\caption{}
-\begin{tabular}{|c|c|c|c|c|l|l|l|l|l|l|l|l|}
-  \hline
-  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
-   &  &  &  &  &  &  &  \\
-  \hline
-  Disaster Region         &  &  &  &  &  &  &  \\
-  \hline
-  Total Nodes             &  &  &  &  &  &  &  \\
-  \hline
-  Total Overlay Nodes     &  &  &  &  &  &  &  \\
-  \hline
-  Nodes in Region         &  &  &  &  &  &  &  \\
-  \hline
-  Overlay Nodes in Region &  &  &  &  &  &  &  \\
-  \hline
-\end{tabular}
-\end{table}
-\end{column}
-\end{columns}
+%\begin{frame}{Regions/AS'es Evaluated}
+%\begin{columns}
+%\begin{column}{\textwidth}
+%\begin{table}
+%\centering
+%\label{TABLE}
+%\caption{}
+%\begin{tabular}{|c|c|c|c|c|l|l|l|l|l|l|l|l|}
+%  \hline
+%  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+%   &  &  &  &  &  &  &  \\
+%  \hline
+%  Disaster Region         &  &  &  &  &  &  &  \\
+%  \hline
+%  Total Nodes             &  &  &  &  &  &  &  \\
+%  \hline
+%  Total Overlay Nodes     &  &  &  &  &  &  &  \\
+%  \hline
+%  Nodes in Region         &  &  &  &  &  &  &  \\
+%  \hline
+%  Overlay Nodes in Region &  &  &  &  &  &  &  \\
+%  \hline
+%\end{tabular}
+%\end{table}
+%\end{column}
+%\end{columns}
+%\end{frame}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{frame}{Furthest First Path Heuristic}
+\begin{itemize}
+	\item Compared heuristics with baseline Random
+	\item ns-3 simulation environment
+	\item 10 seconds simulation time
+	\begin{itemize}
+		\item $>$10s $\rightarrow$ data not as useful for early warning
+		\item Most damage done (earthquake over)
+		\item Routes start to recover
+	\end{itemize}
+	\item Nodes retry every $timeout$ seconds (up to 20 times)
+	\item $timeout = 500ms$: East $\rightarrow$ West RTT $\approx$200-300ms
+	\item Nodes/links in disaster region fail uniformly with probability $p = 0.1, 0.2, … 0.5$
+	\item All overlay nodes in region (one incident link) report to server during disaster
+	\item Server chosen randomly from 10 highest-degree nodes outside disaster
+	\item Each combination of parameters repeated 100 times with different RNG seeds
+	\item BRITE topology generator (10000 nodes, 50 AS'es, top-down Barabasi/Waxman model)
+\end{itemize}
 \end{frame}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
