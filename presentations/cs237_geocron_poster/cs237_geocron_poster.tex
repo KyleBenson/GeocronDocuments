@@ -28,15 +28,14 @@
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\begin{frame}{Orthogonal Distant Path Heuristic}
+\begin{frame}{Exploiting Location Information}
 \begin{columns}
 \begin{column}{.5\textwidth}
 
-% re-works this itemize into a different background slide.
-% put algorithm here instead, maybe an observation/intuition
-
 \begin{itemize}
-	\item Failure along path to server or in local area
+	\item Contact overlay nodes outside of local region to avoid failures
+	\item Choose overlay nodes from diverse regions not previously attempted
+	\item Failure likely along path to server or in local area
 	\item Choose node outside local	region to avoid overlapping	paths
 	\item Choose path avoiding as much of the direct path as possible
 	\item Overlay node may use similar route to sensor
@@ -44,7 +43,52 @@
 \end{column}
 	
 \begin{column}{.5\textwidth}
+\begin{figure}
+\includegraphics[height=\textwidth,angle=-90]{exploiting_location_information}
+\caption{Sensors try to contact nodes outside of the local area and not along the straight-line path to the server.}
+\end{figure}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{frame}{Orthogonal Distant Path Heuristic}
+\begin{columns}
+\begin{column}{.5\textwidth}
+
+
+% orthogonal algorithm goes here
+
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\begin{figure}
 \includegraphics[height=\textwidth,angle=-90]{angular_path}
+\caption{The intuition of this heuristic is to avoid the straight path, without diverging from it too much.  It strikes a middle ground by choosing a path at an ideal angle of $45^{\circ}$, which makes the angle at the top orthogonal, hence the name.}
+\end{figure}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{frame}{New Region Heuristic}
+\begin{columns}
+\begin{column}{.5\textwidth}
+
+
+% newregion algorithm goes here
+
+\end{column}
+	
+\begin{column}{.5\textwidth}
+\begin{figure}
+\includegraphics[height=\textwidth,angle=-90]{new_region_all}
+\caption{The intuition of this heuristic is to avoid regions that have been previously attempted unsuccessfully.  We assume that no further attempts to contact such a region will succeed.}
+\end{figure}
 \end{column}
 
 \end{columns}
@@ -52,7 +96,7 @@
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\begin{frame}{Angle-Dependent Path Heuristic}
+\begin{frame}{New Angle Path Heuristic}
 \begin{columns}
 
 \begin{column}{.5\textwidth}
@@ -68,13 +112,16 @@
 \lElseIf{$angle < \pi$} {$likelihood = \cos (angle - 0.25 \cdot \pi)$\;}
 \lElseIf{$angle > \pi$} {$likelihood = \cos (2 \cdot ((2 \cdot \pi - angle) - 0.25 \cdot \pi)/3)$\;}
 }
-\caption{Angle-Dependent Path Heuristic Algorithms}
+\caption{New Angle Path Heuristic Algorithm}
 \small
 \end{algorithm}
 \end{column}
 	
 \begin{column}{.5\textwidth}
-\includegraphics[height=\textwidth,angle=-90]{angular_path}
+\begin{figure}
+\includegraphics[height=\textwidth,angle=-90]{new_angle}
+\caption{This heuristic attempts paths along new angles different from the ones previously attempted.}
+\end{figure}
 \end{column}
 
 \end{columns}
@@ -107,6 +154,29 @@
 \end{column}
 	
 \begin{column}{.5\textwidth}
+\begin{figure}
+\includegraphics[height=\textwidth,angle=-90]{new_angle}
+\caption{This heuristic attempts paths that use overlay nodes at an ideal distance from the sensor.  This ideal distance is chosen as a radius that reaches half-way to the server.}
+\end{figure}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{frame}{Closest First Path Heuristic}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\begin{itemize}
+	\item Failure along path to server or in local area
+	\item Choose node that has the largest distance from the source
+	\item Choose path avoiding as much of the direct path as possible
+	\item Overlay node may use similar route to sensor
+\end{itemize}
+\end{column}
+	
+\begin{column}{.5\textwidth}
 \includegraphics[height=\textwidth,angle=-90]{angular_path}
 \end{column}
 
@@ -115,7 +185,7 @@
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\begin{frame}{Furthest Distant Path Heuristic}
+\begin{frame}{Furthest First Path Heuristic}
 \begin{columns}
 \begin{column}{.5\textwidth}
 \begin{itemize}

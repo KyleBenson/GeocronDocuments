@@ -62,7 +62,7 @@
       </dia:composite>
     </dia:attribute>
   </dia:diagramdata>
-  <dia:layer name="Region outlines" visible="true" active="true">
+  <dia:layer name="Region outlines" visible="true">
     <dia:object type="Standard - Box" version="0" id="O0">
       <dia:attribute name="obj_pos">
         <dia:point val="40.7821,8.7787"/>
@@ -257,7 +257,7 @@
         <dia:point val="51.3995,11.8334"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="48.4333,11.0446;54.3657,12.6221"/>
+        <dia:rectangle val="48.4333,11.0446;54.3658,12.6221"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -337,7 +337,7 @@
       </dia:connections>
     </dia:object>
   </dia:layer>
-  <dia:layer name="Background" visible="true">
+  <dia:layer name="Background" visible="true" active="true">
     <dia:object type="Standard - Line" version="0" id="O9">
       <dia:attribute name="obj_pos">
         <dia:point val="64.0376,48.6137"/>
@@ -1978,19 +1978,19 @@
     </dia:object>
     <dia:object type="Standard - Image" version="0" id="O61">
       <dia:attribute name="obj_pos">
-        <dia:point val="61.3279,42.6167"/>
+        <dia:point val="60.6552,45.5598"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="61.2779,42.5667;70.3291,55.3234"/>
+        <dia:rectangle val="60.6052,45.5098;69.6563,51.9115"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="61.3279,42.6167"/>
+        <dia:point val="60.6552,45.5598"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="8.9511566162109375"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
-        <dia:real val="12.656743049621582"/>
+        <dia:real val="6.3016142578125001"/>
       </dia:attribute>
       <dia:attribute name="draw_border">
         <dia:boolean val="false"/>
@@ -1999,15 +1999,15 @@
         <dia:boolean val="true"/>
       </dia:attribute>
       <dia:attribute name="file">
-        <dia:string>#images/models/devices/server2.svg#</dia:string>
+        <dia:string>#images/models/devices/cloud_server.png#</dia:string>
       </dia:attribute>
     </dia:object>
     <dia:object type="Standard - Text" version="1" id="O62">
       <dia:attribute name="obj_pos">
-        <dia:point val="65.8035,48.9451"/>
+        <dia:point val="65.1308,48.7106"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="63.5823,47.6876;68.0247,49.2651"/>
+        <dia:rectangle val="62.9095,47.4531;67.352,49.0306"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -2021,7 +2021,7 @@
             <dia:real val="1.6933333432020965"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="65.8035,48.9451"/>
+            <dia:point val="65.1308,48.7106"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#000000"/>
@@ -2251,7 +2251,7 @@
       </dia:attribute>
     </dia:object>
   </dia:layer>
-  <dia:layer name="1st attempt" visible="false">
+  <dia:layer name="1st attempt" visible="true">
     <dia:object type="Standard - Arc" version="0" id="O68">
       <dia:attribute name="obj_pos">
         <dia:point val="30.4584,22.023"/>
@@ -2512,7 +2512,7 @@
       </dia:connections>
     </dia:object>
   </dia:layer>
-  <dia:layer name="3rd attempt" visible="false">
+  <dia:layer name="3rd attempt" visible="true">
     <dia:object type="Standard - Arc" version="0" id="O76">
       <dia:attribute name="obj_pos">
         <dia:point val="30.4584,22.023"/>
