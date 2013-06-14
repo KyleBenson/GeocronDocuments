@@ -270,7 +270,10 @@ likelihood *= pastLikelihood;
 \end{column}
 	
 \begin{column}{.5\textwidth}
-\includegraphics[height=\textwidth,angle=-90]{angular_path}
+\begin{figure}
+\includegraphics[height=.5\textwidth,angle=-90]{path_similarity_one_destination}
+\caption{When considering one server, $geo\_similarity(v_0, v_1, v_2, v_3) = dist(v_0, v_2) = geo(v_0, v_2)$  Thus, this heuristic considers overlay peers located further away to be more likely candidates.}
+\end{figure}
 \end{column}
 
 \end{columns}
@@ -298,7 +301,10 @@ likelihood *= pastLikelihood;
 \end{column}
 	
 \begin{column}{.5\textwidth}
-\includegraphics[height=\textwidth,angle=-90]{angular_path}
+\begin{figure}
+\includegraphics[height=\textwidth,angle=-90]{nearest_neighbor}
+\caption{The intuition of this heuristic is to contact nearby overlay nodes to help assess what paths are available as distant nodes provide many more options.  We found, however, that this approach does not work well in practice due to the path similarity inherent with nearby nodes.}
+\end{figure}
 \end{column}
 
 \end{columns}
