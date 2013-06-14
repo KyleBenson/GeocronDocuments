@@ -157,7 +157,7 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \scriptsize
 \Begin{
 %\tcc*[l]{The angle could be either acute or obtuse.}
-$angle = AngleBetween ((sensor,overlay),(sensor,server))$
+$angle = Angle(overlay,server)$\;
 \lFor {$(path = pathsAttempted)$\;}
 \lIf{$angle = \pi$ {\bf or} $angle = 0$} {$likelihood = 0$\;}
 \lElseIf{$angle < \pi$} {$likelihood = \cos (angle - \frac{\pi}{4})$\;}
@@ -196,9 +196,8 @@ $likelihood = likelihood \cdot pastLikelihood$\;
 %\SetAlgoInsideSkip{medskip}
 %$/*Initialization*/$\;
 \Begin{
-%\tcc*[l]{Define idealDist as half of the distance from the source to the destination, dist as the distance from the source to the candidate node, minDist as a lower boundary to avoid candidate node being too close to the source.}
-$idealDist = 0.5 * dist(sensor,server)$
-$minDist = certain reasonably small number$
+\tcc*[l]{minDist = certain reasonably small number}
+$idealDist = 0.5 \cdot dist(sensor,server)$
 $dist = dist(sensor,overlay)$
 \lIf{$dist <= minDist$} {$likelihood = 0$\;}
 \lElseIf{$minDist < dist < idealDist$} {$likelihood = dist^{2} / idealDist^{2}$\;}
