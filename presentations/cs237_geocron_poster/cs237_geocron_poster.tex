@@ -126,7 +126,7 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \scriptsize
 \Begin{
 %\tcc*[l]{Discover any node that has not been discoverd in this region}
-\lIf{$RegionsAttempCount (region\_count)$} {$likelihood = 0$\;}
+\lIf{$RegionsAttempCount (RegionCount)$} {$likelihood = 0$\;}
 \lElse {$likelihood = 1.0$\;}
 }
 \caption{}
@@ -157,11 +157,12 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \scriptsize
 \Begin{
 %\tcc*[l]{The angle could be either acute or obtuse.}
+\lFor {$(itr = pathsAttempted.begin(); itr != pathAttempted.end(); itr ++)$\;}
 \lIf{$angle = \pi$ {\bf or} $angle = 0$} {$likelihood = 0$\;}
 \lElseIf{$angle < \pi$} {$likelihood = \cos (angle - \frac{\pi}{4})$\;}
 \lElseIf{$angle > \pi$} {$likelihood = \cos (2 \cdot ((2\pi - angle) - \frac{\pi}{4})/3)$\;}
-likelihood *= pastLikelihood;
-\tcc*[l]{aggregate likelihoods to make punishments on wrong choices}
+$likelihood = likelihood \cdot pastLikelihood$\;
+%\tcc*[l]{aggregate likelihoods to make punishments on wrong choices}
 }
 \caption{}
 \small
@@ -254,7 +255,7 @@ $dist(v_0, v_2) = geo(v_0, v_2)$
 \SetAlgoLongEnd
 \scriptsize
 \Begin{
-\tcc*[l]{Set maxDistance to a considerably large number}
+\tcc*[l]{maxDistance = certainly reasonably large number}
 \lIf{$dist(a,b) > maxDistance$} {$likelihood = 0$\;}
 \lElse {$likelihood = (maxDistance - dist(a,b)) / maxDistance $\;}
 }
@@ -277,7 +278,7 @@ $dist(v_0, v_2) = geo(v_0, v_2)$
 \SetAlgoLongEnd
 \scriptsize
 \Begin{
-\tcc*[l]{Set minDistance to a considerably small number}
+\tcc*[l]{minDistance = certain reasonably small number}
 \lIf{$dist(a,b) < minDistance$} {$likelihood = 0$\;}
 \lElse {$likelihood = (dist(a,b) - minDistance) / dist(a,b) $\;}
 }
