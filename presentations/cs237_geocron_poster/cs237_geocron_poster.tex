@@ -6,6 +6,7 @@
 % declare the path(s) where your graphic files are
 % ../.. is the GeocronDocuments directory
 \graphicspath{{../../images/diagrams/}}
+%\graphicspath{{../diagrams/}}
 \DeclareGraphicsExtensions{.pdf,.png}
 
 \begin{document}
@@ -235,7 +236,10 @@ likelihood *= pastLikelihood;
 \end{column}
 	
 \begin{column}{.5\textwidth}
+\begin{figure}
 \includegraphics[height=\textwidth,angle=-90]{angular_path}
+\caption{This heuristic select overlay node that has the closest distance to the source.}
+\end{figure}
 \end{column}
 
 \end{columns}
@@ -263,7 +267,10 @@ likelihood *= pastLikelihood;
 \end{column}
 	
 \begin{column}{.5\textwidth}
+\begin{figure}
 \includegraphics[height=\textwidth,angle=-90]{angular_path}
+\caption{This heuristic select overlay node that has the furthest distance to the source.}
+\end{figure}
 \end{column}
 
 \end{columns}
