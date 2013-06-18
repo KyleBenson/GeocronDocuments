@@ -111,7 +111,23 @@ One expects possible disruptions of the telecommunications infrastructure during
 This paper builds upon previous work \cite{Benson2013}, extending the GeoCRON simulator to compare new heuristics on different topologies.
 In the following sections, we first describe the changes made to support the new BRITE topology generator, the heuristics implemented in the simulator, and the results from the simulations we ran.
 
- 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Topology Generator}
+
+In order to better compare the location routing heuristics, we wanted to generate topologies with more fine-grained information than is available with the currently-used Rocketfuel topologies.
+This allows nodes within a particular region to have different locations, opening up more possibilities for diverse path choices.
+
+For this project, we made some large changes to the simulator in order to support the BRITE topology generator, which is integrated into ns-3.
+To accomplish this, we first had to reorganize the way in which the experiments are set up and run.
+Specifically, we modified the main core of the GeoCRON simulator to first build a network of nodes with static positions, then index the nodes based on location before finally installing applications and running the simulations.
+This allows us to plug in new topology generators as long as they set positions for each node.
+
+Because the topology generator has to set the nodes' positions, we had to extend the BRITE topology generator to do so.
+Once this was done and the experiment core was refactored, plugging in the BRITE model was simple.
+This change also allows us to plug in simpler topology generators, such as grids or stars, and even more complex ones, such as Inet.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 \section{Algorithm}
 There are six routing heuristic algorithms that have been tested and compared in the simulation: orthogonal distant path heuristic, new region heuristic, new angle path heuristic, distant-dependent path heuristic, furthest first path heuristic and closest first path heuristic.
