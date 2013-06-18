@@ -249,7 +249,7 @@ This heuristic considers overlay peers located further away to be more likely ca
 \lIf{$dist(a,b) < minDistance$} {$likelihood = 0$\;}
 \lElse {$likelihood = (dist(a,b) - minDistance) / dist(a,b) $\;}
 }
-\caption{Definition of path similarity presented in W. Sun, ``A Method for Overlay Network Latency Estimation from Previous Observation'', ICN-2013. Thus, this heuristic considers overlay peers located further away to be more likely candidates.}
+\caption{Furthest First Path Heuristic}
 \small
 \end{algorithm}
 
@@ -257,7 +257,7 @@ This heuristic considers overlay peers located further away to be more likely ca
 \begin{center}
 \includegraphics[scale=0.7,angle=-90]{../../images/external/location_routing/path_similarity_two_destinations}
 \includegraphics[scale=0.7,angle=-90]{../../images/external/location_routing/path_similarity_one_destination}
-\caption{Furthest First Path Heuristic}
+\caption{Definition of path similarity presented in W. Sun, ``A Method for Overlay Network Latency Estimation from Previous Observation'', ICN-2013. Thus, this heuristic considers overlay peers located further away to be more likely candidates.}
 \end{center}
 \end{figure*}
 % % %
