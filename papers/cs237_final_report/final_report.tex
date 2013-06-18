@@ -21,7 +21,7 @@
   \usepackage[pdftex]{graphicx}
   % declare the path(s) where your graphic files are
   % ../.. is the GeocronDocuments directory
-  \graphicspath{{../../images/external/location_routing}{../../images/}}
+\graphicspath{{../../images/diagrams/}{../../images/external/location_routing/}{../../images/plots/}}
   % and their extensions so you won't have to specify these with
   % every instance of \includegraphics
   \DeclareGraphicsExtensions{.pdf,.png}
@@ -52,8 +52,83 @@ Email: kebenson@uci.edu, zhipengh@uci.edu}}
 % use for special paper notices
 \IEEEspecialpapernotice{(Project Report for CS 237 - Distributed Systems Middleware)}
 
-
 \maketitle
+
+
+\section{Introduction}
+
+
+With the increasing availability and decreasing cost of microelectromechanical systems (MEMS) sensors, several projects have begun exploring the use of these devices in Internet-connected distributed sensing efforts.
+The Quake-Catcher Network \cite{qcn} and Community Seismic Network \cite{csn_site} utilize small inexpensive accelerometers attached to volunteers' computers to monitor seismic activity.
+When they detect abnormal ground motion, indicative of a possible seismic event, these hosts report to a central server that processes the information and determines if an earthquake has occurred.
+Other such devices, whose information could help understand regional impact of phenomena, include weather stations, pollution detectors, and geiger counters \cite{caltech_sensors}.
+
+We believe that the domain of disaster response could benefit from the inputs of these community scale networked sensors.
+Such sensor networks could potentially detect these events' onset and warn possibly affected individuals to find shelter, as well as aid first responders through increased situational awareness.
+However, network failures can severely hamper these networks' ability to gather useful information in a timely manner, especially important for those aimed at monitoring fast-moving destructive physical phenomena such as earthquakes and floods.
+Such events often result in large-scale geographically correlated failures in addition to serious network congestion as individuals contact each other or request help, exacerbating failures or tying up channels entirely.
+
+Many previous projects have explored resilience to failures in the Internet, although few have addressed large-scale geographically correlated failures.
+Most of these works aim to formally model failures and identify strategies for designing more reliable network infrastructure.
+For example, \cite{geocorrelated} studied regional failures by defining line segments that cut any intersecting links in the graph representative of the network topology under consideration.
+Some of the most devastatingly impacting link cuts possible in a particular network provider were identified and categorized in \cite{net_disaster_planning} to aid in planning more resilient networks.
+Both \cite{model_analysis} and \cite{resilience_survey} discuss general challenges to networked systems and discuss the proposed \emph{ResiliNets} framework, which aims to formalize the steps and strategies involved in designing and maintaining more robust networks.
+
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.5in]{overlay_path.pdf}
+\caption{An overlay routing example.  Consider R1, R2, R3, and R4 are routers.  R1 (crossed out) has failed and host H1's normal (shortest) path to the server is unavailable.  Instead, it can route through nearby nodes in the order shown (R2, R4, H3, R4, R3, through the Internet and finally to the server).  H3 serves as an intermediary hop so that H1 can target a different path along the underlying network, without the network knowing about it.}
+\label{fig_overlay_path}
+\end{figure}
+
+\subsection{Resilient Overlay Networks}
+
+In this paper, we explore the creation and use of resilient overlay networks (RONs) to address large-scale disasters and the resultant failures that hamper sensor devices', as well as responders', ability to deliver data over the Internet backbone.
+Previous research \cite{ron,reactive_routing} has shown that these overlay networks can help route packets along alternative communication paths when the primary one is damaged, unavailable, or simply congested.
+This particularly helps while routing protocols still have not converged and established new end-to-end paths.
+
+%TODO: find the 40 seconds to SON speaker on 11/1 was referring to
+
+When a particular link becomes unavailable, whether due to a physical failure or congestion, the network's underlying routing protocols may take several minutes to find an alternative route.
+Several case studies have identified serious problems with routing over the Internet, such as \cite{routing_resilience_analysis} that discovered several paths hopping to other continents unnecessarily after a major earthquake in Taiwan.
+This paper also determined that BGP policies significantly reduced Internet resilience due to disallowing certain paths.
+Most visible failures were found to not exceed 5-15 minutes in \cite{reactive_routing} and BGP route update convergence was found to take up to 15 minutes after a fault in \cite{route_convergence}.
+During this time, some end-to-end connections may be unavailable because certain paths are non-functional but others may exist that the routing infrastructure is not yet aware of.
+
+%TODO: 6 hours of downtime from that speaker
+
+In RONs, routers try to find an alternative path when the main one fails to deliver a packet, as shown in Figure \ref{fig_overlay_path}.
+They attempt to make contact with another node in the overlay to see if that node is reachable and has a working path to the desired destination.
+If it does, then the traffic is routed through this intermediate node to the destination until a more direct path becomes available or less congested.
+Adding this level of intelligence to the routing infrastructure may incur large amounts of additional complexity and cost, but it can also be accomplished with simple end hosts in a peer-to-peer-like fashion.
+Deploying end hosts for the specific purpose of establishing a RON, or using those that are already part of a distributed sensing effort for this purpose as well, could possibly increase the reliability of a system without having to modify any of the routers in the underlying physical network.
+
+\subsection{Contribution}
+To lend focus to our work, we explored this problem in the context of CSN \cite{csn_site}.
+In order to effectively identify and categorize earthquakes in a timely manner, the small messages sent by the seismic sensors, referred to as \emph{picks}, must arrive at the server for analysis within a few seconds at most, especially if CSN is to be used as any sort of early warning system.
+One expects possible disruptions of the telecommunications infrastructure during a powerful seismic event and so this scenario seemed a perfect application for our technique.
+
+This paper builds upon previous work \cite{Benson2013}, extending the GeoCRON simulator to compare new heuristics on different topologies.
+In the following sections, we first describe the changes made to support the new BRITE topology generator, the heuristics implemented in the simulator, and the results from the simulations we ran.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Topology Generator}
+
+In order to better compare the location routing heuristics, we wanted to generate topologies with more fine-grained information than is available with the currently-used Rocketfuel topologies.
+This allows nodes within a particular region to have different locations, opening up more possibilities for diverse path choices.
+
+For this project, we made some large changes to the simulator in order to support the BRITE \cite{brite} topology generator, which is integrated into ns-3.
+To accomplish this, we first had to reorganize the way in which the experiments are set up and run.
+Specifically, we modified the main core of the GeoCRON simulator to first build a network of nodes with static positions, then index the nodes based on location before finally installing applications and running the simulations.
+This allows us to plug in new topology generators as long as they set positions for each node.
+
+Because the topology generator has to set the nodes' positions, we had to extend the BRITE topology generator to do so.
+Once this was done and the experiment core was refactored, plugging in the BRITE model was simple.
+This change also allows us to plug in simpler topology generators, such as grids or stars, and even more complex ones, such as Inet.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 
 \section{Algorithm}
@@ -241,6 +316,7 @@ There are certain other aspects that need to be improved in the future.
 First of all, a detailed comparison between the six heuristics should be explored regarding aspects such as difference in convegence time, latency, expected delivery ratio, etc.
 Moreover, the purpose of the simulation of the six algorithms should be more clear.
 
+
 % % %
 % %
 \section{Results}
@@ -258,5 +334,11 @@ NOTE: due to some necessarily aggressive data cleaning, the delivery ratio is ex
 Note that the more restrictive heuristics stop finding alternative connections before those that pick from more diverse areas, such as Random and New Angle.
 This pattern, as well as the relatively poor performance of Nearest Neighbor, grows proportionally to the failure probability.}
 \end{figure}
+=======
+
+\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{IEEEabrv,final_report}
+
 
 \end{document}
