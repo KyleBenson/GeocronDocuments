@@ -7,6 +7,7 @@
 \usepackage{algorithmic}
 \usepackage{amssymb}
 \usepackage{multirow}
+\usepackage{float}
 \interdisplaylinepenalty=2500
 
 % *** GRAPHICS RELATED PACKAGES ***
@@ -137,16 +138,16 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \lIf{$angA > \frac{\pi}{2}$ {\bf or} $angA + angC < \frac{\pi}{2}$ {\bf or} $perpDist > dist(a,b)$} {$likelihood = 0$\;}
 \lElse {$likelihood = 0.5 \cdot (( 1.0 - (||perpDist|-|idealDist|| / idealDist)^{2}) + ( 1.0 - (|\frac{\pi}{2} - angC| / \frac{\pi}{2})^{2}))$\;}
 }
-\caption{}
+\caption{The intuition of this heuristic is to avoid the straight path, without diverging from it too much.  It strikes a middle ground by choosing a path at an ideal angle of $45^{\circ}$, which makes the angle at the top orthogonal, hence the name.}
 \small
 \end{algorithm}
 
-\begin{figure}
+\begin{figure}[!H]
 \centering
 \includegraphics[width=2.6in,angle=-90]{../../images/diagrams/angular_path}
 \caption{Orthogonal Distant Path Heuristic}
 \end{figure}
-
+%
 % % % % % % % % %
 %
 
@@ -163,11 +164,11 @@ The intuition of this heuristic is to avoid regions that have been previously at
 \lIf{$peer.region \in regionsAttempted$} {$likelihood = 0$\;}
 \lElse {$likelihood = 1.0$\;}
 }
-\caption{}
+\caption{The intuition of this heuristic is to avoid regions that have been previously attempted unsuccessfully.  We assume that no further attempts to contact such a region will succeed.}
 \small
 \end{algorithm}
 
-\begin{figure}
+\begin{figure}[!H]
 \centering
 \includegraphics[width=2.6in,angle=-90]{../../images/diagrams/new_region_all}
 \caption{New Region Heuristic}
@@ -192,11 +193,11 @@ $angle = Angle(overlay,server)$\;
 \lForEach {$path \in pathsAttempted$} {$thisLikelihood = |\frac{\sin (angle)}{2}|$\;} {$newLikelihood *= thisLikelihood$\;}
 %\tcc*[l]{aggregate likelihoods to make punishments on wrong choices}
 }
-\caption{}
+\caption{This heuristic attempts paths along new angles different from the ones previously attempted.}
 \small
 \end{algorithm}
 
-\begin{figure}
+\begin{figure}[!H]
 \centering
 \includegraphics[width=2.6in,angle=-90]{../../images/diagrams/new_angle}
 \caption{New Angle Path Heuristic}
@@ -223,11 +224,11 @@ $dist = dist(sensor,overlay)$
 \lElseIf{$minDist < dist < idealDist$} {$likelihood = dist^{2} / idealDist^{2}$\;}
 \lElseIf{$dist >= idealDist$} {$likelihood = idealDist / dist $\;}
 }
-\caption{}
+\caption{This heuristic attempts paths that use overlay nodes at an ideal distance from the sensor.  This ideal distance is chosen as a radius that reaches half-way to the server.}
 \small
 \end{algorithm}
 
-\begin{figure}
+\begin{figure}[!H]
 \centering
 \includegraphics[width=2.6in,angle=-90]{../../images/diagrams/ideal_distant_path}
 \caption{Distance-Dependent Path Heuristic}
@@ -235,7 +236,8 @@ $dist = dist(sensor,overlay)$
 % % %
 %
 \subsection{Furthest First Path Heuristic}
-This heuristic considers overlay peers located further away to be more likely candidates.
+Due to the Definition of path similarity presented in W. Sun, ``A Method for Overlay Network Latency Estimation from Previous Observation'', we basically only need to observe the distance from the overlay node to the sensor node. 
+The further the overlay node gets, the further it could get away from the disaster zone, hence better communication it could get. This heuristic considers overlay peers located further away to be more likely candidates.
 
 \begin{algorithm}
 \DontPrintSemicolon
@@ -248,7 +250,7 @@ This heuristic considers overlay peers located further away to be more likely ca
 \lIf{$dist(a,b) < minDistance$} {$likelihood = 0$\;}
 \lElse {$likelihood = (dist(a,b) - minDistance) / dist(a,b) $\;}
 }
-\caption{}
+\caption{Furthest First Path Heuristic}
 \small
 \end{algorithm}
 
@@ -256,7 +258,7 @@ This heuristic considers overlay peers located further away to be more likely ca
 \begin{center}
 \includegraphics[scale=0.7,angle=-90]{../../images/external/location_routing/path_similarity_two_destinations}
 \includegraphics[scale=0.7,angle=-90]{../../images/external/location_routing/path_similarity_one_destination}
-\caption{Furthest First Path Heuristic}
+\caption{Definition of path similarity presented in W. Sun, ``A Method for Overlay Network Latency Estimation from Previous Observation'', ICN-2013. Thus, this heuristic considers overlay peers located further away to be more likely candidates.}
 \end{center}
 \end{figure*}
 % % %
@@ -274,11 +276,11 @@ The intuition of this heuristic is to contact nearby overlay nodes that have fou
 \lIf{$dist(a,b) > maxDistance$} {$likelihood = 0$\;}
 \lElse {$likelihood = (maxDistance - dist(a,b)) / maxDistance $\;}
 }
-\caption{}
+\caption{The intuition of this heuristic is to contact nearby overlay nodes that have found a path out of the local region.  We found, however, that this approach does not always work well in practice, likely due to the path similarity inherent with nearby nodes.}
 \small
 \end{algorithm}
 
-\begin{figure}
+\begin{figure}[!H]
 \centering
 \includegraphics[width=2.6in,angle=-90]{../../images/diagrams/nearest_neighbor}
 \caption{Closest First Path Heuristic}
