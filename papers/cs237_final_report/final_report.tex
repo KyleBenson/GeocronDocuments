@@ -144,7 +144,7 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 \begin{figure}
 \centering
 \includegraphics[width=2.6in,angle=-90]{../../images/diagrams/angular_path}
-\caption{The intuition of this heuristic is to avoid the straight path, without diverging from it too much.  It strikes a middle ground by choosing a path at an ideal angle of $45^{\circ}$, which makes the angle at the top orthogonal, hence the name.}
+\caption{Orthogonal Distant Path Heuristic}
 \end{figure}
 %
 % % % % % % % % %
@@ -170,7 +170,7 @@ The intuition of this heuristic is to avoid regions that have been previously at
 \begin{figure}
 \centering
 \includegraphics[width=2.6in,angle=-90]{../../images/diagrams/new_region_all}
-\caption{The intuition of this heuristic is to avoid regions that have been previously attempted unsuccessfully.  We assume that no further attempts to contact such a region will succeed.}
+\caption{New Region Heuristic}
 \end{figure}
 
 % % %
@@ -199,7 +199,7 @@ $angle = Angle(overlay,server)$\;
 \begin{figure}
 \centering
 \includegraphics[width=2.6in,angle=-90]{../../images/diagrams/new_angle}
-\caption{This heuristic attempts paths along new angles different from the ones previously attempted.}
+\caption{New Angle Path Heuristic}
 \end{figure}
 
 % % % %
@@ -230,7 +230,7 @@ $dist = dist(sensor,overlay)$
 \begin{figure}
 \centering
 \includegraphics[width=2.6in,angle=-90]{../../images/diagrams/ideal_distant_path}
-\caption{This heuristic attempts paths that use overlay nodes at an ideal distance from the sensor.  This ideal distance is chosen as a radius that reaches half-way to the server.}
+\caption{Distance-Dependent Path Heuristic}
 \end{figure}
 % % %
 %
@@ -257,7 +257,7 @@ The further the overlay node gets, the further it could get away from the disast
 \begin{center}
 \includegraphics[scale=0.7,angle=-90]{../../images/external/location_routing/path_similarity_two_destinations}
 \includegraphics[scale=0.7,angle=-90]{../../images/external/location_routing/path_similarity_one_destination}
-\caption{Definition of path similarity presented in W. Sun, ``A Method for Overlay Network Latency Estimation from Previous Observation'', ICN-2013. Thus, this heuristic considers overlay peers located further away to be more likely candidates.}
+\caption{Furthest First Path Heuristic}
 \end{center}
 \end{figure*}
 % % %
@@ -282,7 +282,7 @@ The intuition of this heuristic is to contact nearby overlay nodes that have fou
 \begin{figure}
 \centering
 \includegraphics[width=2.6in,angle=-90]{../../images/diagrams/nearest_neighbor}
-\caption{The intuition of this heuristic is to contact nearby overlay nodes that have found a path out of the local region.  We found, however, that this approach does not always work well in practice, likely due to the path similarity inherent with nearby nodes.}
+\caption{Closest First Path Heuristic}
 \end{figure}
 
 % % %
