@@ -58,7 +58,6 @@ Email: kebenson@uci.edu, zhipengh@uci.edu}}
 
 \section{Introduction}
 
-
 With the increasing availability and decreasing cost of microelectromechanical systems (MEMS) sensors, several projects have begun exploring the use of these devices in Internet-connected distributed sensing efforts.
 The Quake-Catcher Network \cite{qcn} and Community Seismic Network \cite{csn_site} utilize small inexpensive accelerometers attached to volunteers' computers to monitor seismic activity.
 When they detect abnormal ground motion, indicative of a possible seismic event, these hosts report to a central server that processes the information and determines if an earthquake has occurred.
@@ -68,13 +67,6 @@ We believe that the domain of disaster response could benefit from the inputs of
 Such sensor networks could potentially detect these events' onset and warn possibly affected individuals to find shelter, as well as aid first responders through increased situational awareness.
 However, network failures can severely hamper these networks' ability to gather useful information in a timely manner, especially important for those aimed at monitoring fast-moving destructive physical phenomena such as earthquakes and floods.
 Such events often result in large-scale geographically correlated failures in addition to serious network congestion as individuals contact each other or request help, exacerbating failures or tying up channels entirely.
-
-Many previous projects have explored resilience to failures in the Internet, although few have addressed large-scale geographically correlated failures.
-Most of these works aim to formally model failures and identify strategies for designing more reliable network infrastructure.
-For example, \cite{geocorrelated} studied regional failures by defining line segments that cut any intersecting links in the graph representative of the network topology under consideration.
-Some of the most devastatingly impacting link cuts possible in a particular network provider were identified and categorized in \cite{net_disaster_planning} to aid in planning more resilient networks.
-Both \cite{model_analysis} and \cite{resilience_survey} discuss general challenges to networked systems and discuss the proposed \emph{ResiliNets} framework, which aims to formalize the steps and strategies involved in designing and maintaining more robust networks.
-
 
 \begin{figure}[!t]
 \centering
@@ -92,13 +84,6 @@ This particularly helps while routing protocols still have not converged and est
 %TODO: find the 40 seconds to SON speaker on 11/1 was referring to
 
 When a particular link becomes unavailable, whether due to a physical failure or congestion, the network's underlying routing protocols may take several minutes to find an alternative route.
-Several case studies have identified serious problems with routing over the Internet, such as \cite{routing_resilience_analysis} that discovered several paths hopping to other continents unnecessarily after a major earthquake in Taiwan.
-This paper also determined that BGP policies significantly reduced Internet resilience due to disallowing certain paths.
-Most visible failures were found to not exceed 5-15 minutes in \cite{reactive_routing} and BGP route update convergence was found to take up to 15 minutes after a fault in \cite{route_convergence}.
-During this time, some end-to-end connections may be unavailable because certain paths are non-functional but others may exist that the routing infrastructure is not yet aware of.
-
-%TODO: 6 hours of downtime from that speaker
-
 In RONs, routers try to find an alternative path when the main one fails to deliver a packet, as shown in Figure \ref{fig_overlay_path}.
 They attempt to make contact with another node in the overlay to see if that node is reachable and has a working path to the desired destination.
 If it does, then the traffic is routed through this intermediate node to the destination until a more direct path becomes available or less congested.
@@ -302,7 +287,6 @@ The intuition of this heuristic is to contact nearby overlay nodes that have fou
 
 % % %
 %
-\newpage
 
 \section{Results}
 We set up the GeoCron simulator accordingly with the parameters.
@@ -328,26 +312,22 @@ In specific, the simulation is set as follows:
 
 The results are shown in the two figures below.
 
-\newpage
-
-\begin{figure}
+\begin{figure*}
 \includegraphics[width=6.0in]{../../images/plots/fprob1}
 \vspace{-20pt}
 \caption{Delivery ratio of the various heuristics for a failure probability of 0.1.
 One can notice the way the heuristics sometimes overcome another's delivery ratio as time evolves and different paths are considered.
 NOTE: due to some necessarily aggressive data cleaning, the delivery ratio is exaggerated and skewed.}
-\end{figure}
-\begin{figure}
+\end{figure*}
+\begin{figure*}
 \includegraphics[width=6.0in]{../../images/plots/fprob3}
 \vspace{-20pt}
 \caption{Delivery ratio for a failure probability of 0.3.
 Note that the more restrictive heuristics stop finding alternative connections before those that pick from more diverse areas, such as Random and New Angle.
 This pattern, as well as the relatively poor performance of Nearest Neighbor, grows proportionally to the failure probability.}
-\end{figure}
+\end{figure*}
 
-% %
-
-\newpage
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Conclusion}
 In this paper, we described our recent additions to the GeoCRON simulator.
