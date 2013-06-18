@@ -118,7 +118,7 @@ In the following sections, we first describe the changes made to support the new
 In order to better compare the location routing heuristics, we wanted to generate topologies with more fine-grained information than is available with the currently-used Rocketfuel topologies.
 This allows nodes within a particular region to have different locations, opening up more possibilities for diverse path choices.
 
-For this project, we made some large changes to the simulator in order to support the BRITE topology generator, which is integrated into ns-3.
+For this project, we made some large changes to the simulator in order to support the BRITE \cite{brite} topology generator, which is integrated into ns-3.
 To accomplish this, we first had to reorganize the way in which the experiments are set up and run.
 Specifically, we modified the main core of the GeoCRON simulator to first build a network of nodes with static positions, then index the nodes based on location before finally installing applications and running the simulations.
 This allows us to plug in new topology generators as long as they set positions for each node.
@@ -276,5 +276,10 @@ For example, the New Angle and Distance-Dependent heuristics may be combined wit
 There are certain other aspects that need to be improved in the future.
 First of all, a detailed comparison between the six heuristics should be explored regarding aspects such as difference in convegence time, latency, expected delivery ratio, etc.
 Moreover, the purpose of the simulation of the six algorithms should be more clear.
+
+
+\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{IEEEabrv,final_report}
 
 \end{document}
