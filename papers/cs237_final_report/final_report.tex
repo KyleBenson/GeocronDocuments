@@ -158,12 +158,13 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.25,angle=-90]{../../images/diagrams/angular_path}
+\includegraphics[width=2.6in,angle=-90]{../../images/diagrams/angular_path}
 \caption{Orthogonal Distant Path Heuristic}
 \end{figure}
 
 % % % % % % % % %
 %
+
 \subsection{New Region Heuristic}
 The intuition of this heuristic is to avoid regions that have been previously attempted unsuccessfully.  We assume that no further attempts to contact such a region will succeed.
 \begin{algorithm}
@@ -182,7 +183,8 @@ The intuition of this heuristic is to avoid regions that have been previously at
 \end{algorithm}
 
 \begin{figure}
-\includegraphics[scale=0.25,angle=-90]{../../images/diagrams/new_region_all}
+\centering
+\includegraphics[width=2.6in,angle=-90]{../../images/diagrams/new_region_all}
 \caption{New Region Heuristic}
 \end{figure}
 
@@ -210,7 +212,8 @@ $angle = Angle(overlay,server)$\;
 \end{algorithm}
 
 \begin{figure}
-\includegraphics[scale=0.25,angle=-90]{../../images/diagrams/new_angle}
+\centering
+\includegraphics[width=2.6in,angle=-90]{../../images/diagrams/new_angle}
 \caption{New Angle Path Heuristic}
 \end{figure}
 
@@ -240,7 +243,8 @@ $dist = dist(sensor,overlay)$
 \end{algorithm}
 
 \begin{figure}
-\includegraphics[scale=0.25,angle=-90]{../../images/diagrams/ideal_distant_path}
+\centering
+\includegraphics[width=2.6in,angle=-90]{../../images/diagrams/ideal_distant_path}
 \caption{Distance-Dependent Path Heuristic}
 \end{figure}
 % % %
@@ -290,12 +294,60 @@ The intuition of this heuristic is to contact nearby overlay nodes that have fou
 \end{algorithm}
 
 \begin{figure}
-\includegraphics[scale=0.25,angle=-90]{../../images/diagrams/nearest_neighbor}
+\centering
+\includegraphics[width=2.6in,angle=-90]{../../images/diagrams/nearest_neighbor}
 \caption{Closest First Path Heuristic}
 \end{figure}
 
 % % %
 %
+\newpage
+
+\section{Results}
+We set up the GeoCron simulator accordingly with the parameters.
+In specific, the simulation is set as follows:
+
+\begin{itemize}
+	\item Compared heuristics with baseline Random
+	\item ns-3 simulation environment
+	\item 10 seconds simulation time
+	\begin{itemize}
+		\item $>$10s $\rightarrow$ data not as useful for early warning
+		\item Most damage done (earthquake over)
+		\item Routes start to recover
+	\end{itemize}
+	\item Nodes retry every $timeout$ seconds (up to 20 times)
+	\item $timeout = 500ms$: East $\rightarrow$ West RTT $\approx$200-300ms
+	\item Nodes/links in disaster region fail uniformly with probability $p = 0.1, 0.2, 0.3, 0.4, 0.5$
+	\item All overlay nodes in region (one incident link) report to server during disaster
+	\item Server chosen randomly from 10 highest-degree nodes outside disaster
+	\item Each combination of parameters repeated 100 times with different RNG seeds
+	\item BRITE topology generator (10,000 nodes, 50 AS'es, top-down Barabasi/Waxman model, 25 regions)
+\end{itemize}
+
+The results are shown in the two figures below.
+
+\newpage
+
+\begin{figure}
+\includegraphics[width=6.0in]{../../images/plots/fprob1}
+\vspace{-20pt}
+\caption{Delivery ratio of the various heuristics for a failure probability of 0.1.
+One can notice the way the heuristics sometimes overcome another's delivery ratio as time evolves and different paths are considered.
+NOTE: due to some necessarily aggressive data cleaning, the delivery ratio is exaggerated and skewed.}
+\end{figure}
+\begin{figure}
+\includegraphics[width=6.0in]{../../images/plots/fprob3}
+\vspace{-20pt}
+\caption{Delivery ratio for a failure probability of 0.3.
+Note that the more restrictive heuristics stop finding alternative connections before those that pick from more diverse areas, such as Random and New Angle.
+This pattern, as well as the relatively poor performance of Nearest Neighbor, grows proportionally to the failure probability.}
+\end{figure}
+
+% %
+
+\newpage
+
 \section{Conclusion}
 In this paper, we described our recent additions to the GeoCRON simulator.
 In particular, we:
@@ -316,25 +368,6 @@ There are certain other aspects that need to be improved in the future.
 First of all, a detailed comparison between the six heuristics should be explored regarding aspects such as difference in convegence time, latency, expected delivery ratio, etc.
 Moreover, the purpose of the simulation of the six algorithms should be more clear.
 
-
-% % %
-% %
-\section{Results}
-\begin{figure}
-\includegraphics[width=.8\textwidth]{../../images/plots/fprob1}
-\vspace{-20pt}
-\caption{Delivery ratio of the various heuristics for a failure probability of 0.1.
-One can notice the way the heuristics sometimes overcome another's delivery ratio as time evolves and different paths are considered.
-NOTE: due to some necessarily aggressive data cleaning, the delivery ratio is exaggerated and skewed.}
-\end{figure}
-\begin{figure}
-\includegraphics[width=.8\textwidth]{../../images/plots/fprob3}
-\vspace{-20pt}
-\caption{Delivery ratio for a failure probability of 0.3.
-Note that the more restrictive heuristics stop finding alternative connections before those that pick from more diverse areas, such as Random and New Angle.
-This pattern, as well as the relatively poor performance of Nearest Neighbor, grows proportionally to the failure probability.}
-\end{figure}
-=======
 
 \bibliographystyle{IEEEtran}
 % argument is your BibTeX string definitions and bibliography database(s)
