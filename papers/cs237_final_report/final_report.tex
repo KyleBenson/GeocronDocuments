@@ -236,7 +236,8 @@ $dist = dist(sensor,overlay)$
 % % %
 %
 \subsection{Furthest First Path Heuristic}
-This heuristic considers overlay peers located further away to be more likely candidates.
+Due to the Definition of path similarity presented in W. Sun, ``A Method for Overlay Network Latency Estimation from Previous Observation'', we basically only need to observe the distance from the overlay node to the sensor node. 
+The further the overlay node gets, the further it could get away from the disaster zone, hence better communication it could get. This heuristic considers overlay peers located further away to be more likely candidates.
 
 \begin{algorithm}
 \DontPrintSemicolon
