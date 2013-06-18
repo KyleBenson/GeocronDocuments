@@ -53,12 +53,15 @@ Email: kebenson@uci.edu, zhipengh@uci.edu}}
 \IEEEspecialpapernotice{(Project Report for CS 237 - Distributed Systems Middleware)}
 
 
+
+
 \maketitle
 \section{Algorithm}
-There are six routing heuristic algorithms that have been tested and compared in the simulation: orthogonal distant path heuristic, new region heuristic, new angle path heuristic, distant-dependent path heuristic, furthest first path heuristic and closest first path heuristic. 
+There are six routing heuristic algorithms that have been tested and compared in the simulation: orthogonal distant path heuristic, new region heuristic, new angle path heuristic, distant-dependent path heuristic, furthest first path heuristic and closest first path heuristic.
+The New Angle, Distance-Dependent, and Furthest-First heuristics are new contributions from this project.
 \subsection{Orthogonal Distant Path Heuristic}
 The intuition of this heuristic is to avoid the straight path, without diverging from it too much.  It strikes a middle ground by choosing a path at an ideal angle of $45^{\circ}$, which makes the angle at the top orthogonal, hence the name.
-\begin{algorithm}[H]
+\begin{algorithm}
 \DontPrintSemicolon
 \SetKwBlock{Begin}{begin}{end}
 \SetAlgoLined
@@ -79,7 +82,7 @@ $perpDist = |\sin (angA) \cdot dist(a,c)|$\;
 %
 \subsection{New Region Heuristic}
 The intuition of this heuristic is to avoid regions that have been previously attempted unsuccessfully.  We assume that no further attempts to contact such a region will succeed.
-\begin{algorithm}[H]
+\begin{algorithm}
 \DontPrintSemicolon
 \SetKwBlock{Begin}{begin}{end}
 \SetAlgoLined
@@ -98,7 +101,7 @@ The intuition of this heuristic is to avoid regions that have been previously at
 %
 \subsection{New Angle Path Heuristic}
 This heuristic attempts paths along new angles different from the ones previously attempted.
-\begin{algorithm}[H]
+\begin{algorithm}
 \DontPrintSemicolon
 \SetKwBlock{Begin}{begin}{end}
 \SetAlgoLined
@@ -121,7 +124,7 @@ $angle = Angle(overlay,server)$\;
 %
 \subsection{Distance-Dependent Path Heuristic}
 This heuristic attempts paths that use overlay nodes at an ideal distance from the sensor.  This ideal distance is chosen as a radius that reaches half-way to the server.
-\begin{algorithm}[H]
+\begin{algorithm}
 \DontPrintSemicolon
 \SetKwBlock{Begin}{begin}{end}
 \SetAlgoLined
@@ -146,7 +149,7 @@ $dist = dist(sensor,overlay)$
 %
 \subsection{Furthest First Path Heuristic}
 Thus, this heuristic considers overlay peers located further away to be more likely candidates.
-\begin{algorithm}[H]
+\begin{algorithm}
 \DontPrintSemicolon
 \SetKwBlock{Begin}{begin}{end}
 \SetAlgoLined
@@ -164,7 +167,7 @@ Thus, this heuristic considers overlay peers located further away to be more lik
 %
 \subsection{Closest First Path Heuristic}
 The intuition of this heuristic is to contact nearby overlay nodes that have found a path out of the local region.  We found, however, that this approach does not always work well in practice, likely due to the path similarity inherent with nearby nodes.
-\begin{algorithm}[H]
+\begin{algorithm}
 \DontPrintSemicolon
 \SetKwBlock{Begin}{begin}{end}
 \SetAlgoLined
@@ -182,8 +185,23 @@ The intuition of this heuristic is to contact nearby overlay nodes that have fou
 % % %
 %
 \section{Conclusion}
-There are certain aspects that need to be improved in the future.
-First of all, a detailed comparison between the six heuristics should be provided regarding items such as difference on convegence time, latency, and so on.
+In this paper, we described our recent additions to the GeoCRON simulator.
+In particular, we:
+
+\begin{itemize}
+ \item Switched from Rocketfuel to BRITE for creating ns-3 network topologies
+\item Added the New Angle heuristic, which repeatedly tries overlay nodes at diverse angles
+\item Added the Furthest-First heuristic, which attempts to contact overlay nodes furthest from the source
+\item Added the Distance-Dependent heuristic, which tries to pick overlay nodes at an ideal distance from the source, preferring nodes further away over those close by
+\item Defined a new method for assigning regions to nodes in which the region of study is broken up into a grid, where each cell is a constant size
+\end{itemize}
+
+We ran simulations on topologies of 10,000 nodes and 25 regions, comparing the peformance of each heuristic with each other.
+The results were inconclusive, demonstrating that further refinement and/or combinations of heuristics are necessary to improve the delivery ratio.
+For example, the New Angle and Distance-Dependent heuristics may be combined with varying weights to pick nodes both far away from the source as well as along diverse paths.
+
+There are certain other aspects that need to be improved in the future.
+First of all, a detailed comparison between the six heuristics should be explored regarding aspects such as difference in convegence time, latency, expected delivery ratio, etc.
 Moreover, the purpose of the simulation of the six algorithms should be more clear.
 
 \end{document}
