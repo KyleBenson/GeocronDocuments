@@ -312,19 +312,27 @@ In specific, the simulation is set as follows:
 The results are shown in the two figures below.
 
 \begin{figure*}
+\label{fprob1}
 \includegraphics[width=6.0in]{../../images/plots/fprob1}
 \vspace{-20pt}
-\caption{Delivery ratio of the various heuristics for a failure probability of 0.1.
-One can notice the way the heuristics sometimes overcome another's delivery ratio as time evolves and different paths are considered.
-NOTE: due to some necessarily aggressive data cleaning, the delivery ratio is exaggerated and skewed.}
+\caption{Delivery ratio of the various heuristics for a failure probability of 0.1.}
 \end{figure*}
+
+In Figure \ref{fprob1}, one can notice the way the heuristics sometimes overcome another's delivery ratio as time evolves and different paths are considered.
+Note that due to some necessarily aggressive data cleaning, the delivery ratio is exaggerated and skewed.
+
+
 \begin{figure*}
+\label{fprob3}
 \includegraphics[width=6.0in]{../../images/plots/fprob3}
 \vspace{-20pt}
-\caption{Delivery ratio for a failure probability of 0.3.
-Note that the more restrictive heuristics stop finding alternative connections before those that pick from more diverse areas, such as Random and New Angle.
-This pattern, as well as the relatively poor performance of Nearest Neighbor, grows proportionally to the failure probability.}
+\caption{Delivery ratio for a failure probability of 0.3.}
 \end{figure*}
+
+In Figure \ref{fprob3}, we see an interesting pattern in which some heuristics stop increasing the delivery ratio after some time.
+This is because some sensors are unable to find any further suitable paths after a certain point.
+Note that the more restrictive heuristics stop finding alternative connections before those that pick from more diverse areas, such as Random and New Angle.
+This pattern, as well as the relatively poor performance of Nearest Neighbor, grows proportionally to the failure probability.
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
